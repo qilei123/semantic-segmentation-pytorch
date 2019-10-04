@@ -162,10 +162,10 @@ def main(cfg, gpus):
 
     # Dataset and Loader
     dataset_train = TrainROPRidgeDataset(
-        root_dataset = cfg.DATASET.root_dataset,
-        opt = cfg.DATASET,
-        img_folder = cfg.DATASET.img_folder_train,
-        anno_filename = cfg.DATASET.list_train,
+        root_dataset_ = cfg.DATASET.root_dataset,
+        opt_ = cfg.DATASET,
+        img_folder_ = cfg.DATASET.img_folder_train,
+        anno_filename_ = cfg.DATASET.list_train,
         batch_per_gpu=cfg.TRAIN.batch_size_per_gpu)
 
     loader_train = torch.utils.data.DataLoader(
