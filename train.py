@@ -165,6 +165,7 @@ def main(cfg, gpus):
         root_dataset_ = cfg.DATASET.root_dataset,
         opt_ = cfg.DATASET,
         img_folder_ = cfg.DATASET.img_folder_train,
+        annotation_folder_ = "annotations",
         anno_filename_ = cfg.DATASET.list_train,
         batch_per_gpu=cfg.TRAIN.batch_size_per_gpu)
 
