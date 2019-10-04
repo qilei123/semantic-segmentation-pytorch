@@ -350,7 +350,7 @@ class BaseROPRidgeDataset(torch.utils.data.Dataset):
     def segm_transform(self, segm):
         # to tensor, -1 to 149
         segm = np.array(segm)
-        #segm[segm>1]=1
+        segm[segm==1]=100
         print(np.unique(segm))
         segm = torch.from_numpy(segm).long() - 1
         return segm
