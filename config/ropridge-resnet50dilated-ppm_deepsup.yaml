@@ -12,8 +12,8 @@ DATASET:
   random_flip: True
 
 MODEL:
-  arch_encoder: "resnet50dilated"
-  arch_decoder: "ppm_deepsup"
+  arch_encoder: "resnet101" #"resnet50dilated"
+  arch_decoder: "upernet" #"ppm_deepsup"
   fc_dim: 2048
 
 TRAIN:
