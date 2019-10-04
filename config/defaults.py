@@ -14,6 +14,8 @@ _C.DATASET = CN()
 _C.DATASET.root_dataset = "./data/"
 _C.DATASET.list_train = "./data/training.odgt"
 _C.DATASET.list_val = "./data/validation.odgt"
+_C.DATASET.img_folder_train = ""
+_C.DATASET.img_folder_val= "val2014"
 _C.DATASET.num_class = 150
 # multiscale train/test, size of short edge (int or tuple)
 _C.DATASET.imgSizes = (300, 375, 450, 525, 600)
