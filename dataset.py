@@ -298,18 +298,19 @@ class TestDataset(BaseDataset):
 
 
 class BaseROPRidgeDataset(torch.utils.data.Dataset):
-    def __init__(self, root_dataset,opt,img_folder,annotation_folder ,
+    def __init__(self, root_dataset,opt,img_folder,annotation_folder,
                 anno_filename,**kwargs):
         # parse options
         self.root_dataset = root_dataset
         self.img_folder = img_folder
+        self.annotation_folder = annotation_folder
         self.imgSizes = opt.imgSizes
         self.imgMaxSize = opt.imgMaxSize
         # max down sampling rate of network to avoid rounding during conv or pooling
         self.padding_constant = opt.padding_constant
 
         # parse the input list
-        self.parse_input_list(self.root_dataset,annotation_folder,anno_filename, **kwargs)
+        self.parse_input_list(self.root_dataset,self.annotation_folder,anno_filename, **kwargs)
 
         # mean and std
         self.normalize = transforms.Normalize(
