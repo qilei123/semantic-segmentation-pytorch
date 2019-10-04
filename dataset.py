@@ -357,11 +357,11 @@ class BaseROPRidgeDataset(torch.utils.data.Dataset):
         return ((x - 1) // p + 1) * p
 
 class TrainROPRidgeDataset(BaseROPRidgeDataset):
-    def __init__(self, root_dataset_,opt_,img_folder_="train2014",annotation_folder_ = "annotations",
-                anno_filename_="ridge_in_one_instances_train2014.json", batch_per_gpu=1, **kwargs):
-        super(BaseROPRidgeDataset, self).__init__(root_dataset = root_dataset_,
-                opt=opt_,img_folder=img_folder_,annotation_folder=annotation_folder_ ,
-                anno_filename=anno_filename_, **kwargs)
+    def __init__(self, root_dataset,opt,img_folder,annotation_folder,
+                anno_filename, batch_per_gpu=1, **kwargs):
+        super(BaseROPRidgeDataset, self).__init__(root_dataset,
+                opt,img_folder,annotation_folder,
+                anno_filename, **kwargs)
         #self.root_dataset = root_dataset
         # down sampling rate of segm labe
         self.segm_downsampling_rate = opt.segm_downsampling_rate
