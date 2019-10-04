@@ -161,6 +161,13 @@ def main(cfg, gpus):
             net_encoder, net_decoder, crit)
 
     # Dataset and Loader
+
+    dataset_train = TrainDataset(
+        cfg.DATASET.root_dataset,
+        cfg.DATASET.list_train,
+        cfg.DATASET,
+        batch_per_gpu=cfg.TRAIN.batch_size_per_gpu)
+    '''
     dataset_train = TrainROPRidgeDataset(
         root_dataset = cfg.DATASET.root_dataset,
         opt = cfg.DATASET,
@@ -168,6 +175,7 @@ def main(cfg, gpus):
         annotation_folder= "annotations",
         anno_filename = cfg.DATASET.list_train,
         batch_per_gpu=cfg.TRAIN.batch_size_per_gpu)
+    '''
 
     loader_train = torch.utils.data.DataLoader(
         dataset_train,
