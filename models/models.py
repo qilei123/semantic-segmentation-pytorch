@@ -12,15 +12,15 @@ class SegmentationModuleBase(nn.Module):
 
     def pixel_acc(self, pred, label):
         _, preds = torch.max(pred, dim=1)
-        print(torch.min(pred))
+        #print(torch.min(pred))
         valid = (label >= 0).long()
         #print(torch.max(valid))
         acc_sum = torch.sum(valid * (preds == label).long())
         
-        print("acc_sum:"+str(acc_sum))
+        #print("acc_sum:"+str(acc_sum))
         pixel_sum = torch.sum(valid)
         
-        print("pixel_sum:"+str(pixel_sum))
+        #print("pixel_sum:"+str(pixel_sum))
         acc = acc_sum.float() / (pixel_sum.float() + 1e-10)
         return acc
 
@@ -40,7 +40,7 @@ class SegmentationModule(SegmentationModuleBase):
                 (pred, pred_deepsup) = self.decoder(self.encoder(feed_dict['img_data'], return_feature_maps=True))
             else:
                 pred = self.decoder(self.encoder(feed_dict['img_data'], return_feature_maps=True))
-            print(pred)
+            #print(pred)
             loss = self.crit(pred, feed_dict['seg_label'])
             if self.deep_sup_scale is not None:
                 loss_deepsup = self.crit(pred_deepsup, feed_dict['seg_label'])
