@@ -18,6 +18,7 @@ class SegmentationModuleBase(nn.Module):
         acc_sum = torch.sum(valid * (preds == label).long())
         print(acc_sum)
         pixel_sum = torch.sum(valid)
+        print(pixel_sum)
         acc = acc_sum.float() / (pixel_sum.float() + 1e-10)
         return acc
 
