@@ -16,9 +16,11 @@ class SegmentationModuleBase(nn.Module):
         valid = (label >= 0).long()
         #print(torch.max(valid))
         acc_sum = torch.sum(valid * (preds == label).long())
-        print(acc_sum)
+        
+        print("acc_sum:"+str(acc_sum))
         pixel_sum = torch.sum(valid)
-        print(pixel_sum)
+        
+        print("pixel_sum:"+str(pixel_sum))
         acc = acc_sum.float() / (pixel_sum.float() + 1e-10)
         return acc
 
