@@ -356,7 +356,7 @@ class BaseROPRidgeDataset(torch.utils.data.Dataset):
     def round2nearest_multiple(self, x, p):
         return ((x - 1) // p + 1) * p
 
-class TrainROPRidgeDataset(torch.utils.data.Dataset):
+class TrainROPRidgeDataset(BaseROPRidgeDataset):
     def __init__(self, root_dataset,opt,img_folder="train2014",annotation_folder = "annotations",
                 anno_filename="ridge_in_one_instances_train2014.json", batch_per_gpu=1, **kwargs):
         super(BaseROPRidgeDataset, self).__init__(root_dataset,opt,img_folder,annotation_folder ,anno_filename, **kwargs)
