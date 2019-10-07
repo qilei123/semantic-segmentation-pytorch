@@ -44,6 +44,7 @@ class SegmentationModule(SegmentationModuleBase):
             print(torch.max(pred))
             print(torch.min(pred))
             print(torch.max(feed_dict['seg_label']))
+            print(torch.min(feed_dict['seg_label']))
             #print(feed_dict['seg_label'].size())
             '''
             import cv2
