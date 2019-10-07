@@ -351,8 +351,8 @@ class BaseROPRidgeDataset(torch.utils.data.Dataset):
         # to tensor, -1 to 149
         segm = np.array(segm)
         segm[segm>1]=1
-        #print(np.unique(segm))
-        segm = torch.from_numpy(segm).long() - 1
+        print(np.unique(segm))
+        segm = torch.from_numpy(segm).long() #- 1
         return segm
 
     # Round x to the nearest multiple of p and x' >= x
