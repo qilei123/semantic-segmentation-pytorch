@@ -5,8 +5,8 @@ DATASET:
   img_folder_train: "train2014"
   img_folder_val: "val2014"
   num_class: 1
-  imgSizes: (300, 375, 450, 525, 600)
-  imgMaxSize: 1000
+  imgSizes: (1000)
+  imgMaxSize: 1500
   padding_constant: 8
   segm_downsampling_rate: 8
   random_flip: True
