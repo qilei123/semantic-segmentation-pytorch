@@ -42,7 +42,7 @@ class SegmentationModule(SegmentationModuleBase):
                 pred = self.decoder(self.encoder(feed_dict['img_data'], return_feature_maps=True))
             showpred = pred.cpu().detach().numpy()
             import cv2
-            cv2.show("test",showpred*255)
+            cv2.imshow("test",showpred*255)
             cv2.waitKey(0)
             loss = self.crit(pred, feed_dict['seg_label'])
             if self.deep_sup_scale is not None:
