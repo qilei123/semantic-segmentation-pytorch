@@ -352,7 +352,7 @@ class BaseROPRidgeDataset(torch.utils.data.Dataset):
         segm = np.array(segm)
         segm[segm>1]=1
         segm[segm==0]=250
-        print(np.unique(segm))
+        #print(np.unique(segm))
         segm = torch.from_numpy(segm).long()# - 1
         return segm
 
