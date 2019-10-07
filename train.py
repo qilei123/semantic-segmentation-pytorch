@@ -161,7 +161,7 @@ def main(cfg, gpus):
             net_encoder, net_decoder, crit)
 
     # Dataset and Loader
-    
+    '''
     dataset_train = TrainDataset(
         cfg.DATASET.root_dataset,
         cfg.DATASET.list_train,
@@ -175,7 +175,7 @@ def main(cfg, gpus):
         annotation_folder= "annotations",
         anno_filename = cfg.DATASET.list_train,
         batch_per_gpu=cfg.TRAIN.batch_size_per_gpu)
-    '''
+    
 
     loader_train = torch.utils.data.DataLoader(
         dataset_train,
@@ -185,6 +185,7 @@ def main(cfg, gpus):
         num_workers=cfg.TRAIN.workers,
         drop_last=True,
         pin_memory=True)
+
     print('1 Epoch = {} iters'.format(cfg.TRAIN.epoch_iters))
 
     # create loader iterator
