@@ -41,8 +41,9 @@ class SegmentationModule(SegmentationModuleBase):
             else:
                 pred = self.decoder(self.encoder(feed_dict['img_data'], return_feature_maps=True))
             showpred = pred.cpu().detach().numpy()
-            print(pred.size())
-            print(feed_dict['seg_label'].size())
+            print(torch.max(pred))
+            print(torch.min(pred))
+            #print(feed_dict['seg_label'].size())
             '''
             import cv2
             #cv2.imshow("test",showpred*255)
