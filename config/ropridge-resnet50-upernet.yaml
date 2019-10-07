@@ -1,0 +1,44 @@
+DATASET:
+  root_dataset: "/data0/qilei_chen/old_alien/AI_EYE_IMGS/ROP_DATASET_with_label/9LESIONS/"
+  list_train: "ridge_in_one_instances_train2014.json"
+  list_val: "ridge_in_one_instances_val2014.json"
+  img_folder_train: "train2014"
+  img_folder_val: "val2014"
+  num_class: 1
+  imgSizes: (1000)
+  imgMaxSize: 1500
+  padding_constant: 32
+  segm_downsampling_rate: 4
+  random_flip: True
+
+MODEL:
+  arch_encoder: "resnet50"
+  arch_decoder: "upernet"
+  fc_dim: 2048
+
+TRAIN:
+  batch_size_per_gpu: 2
+  num_epoch: 30
+  start_epoch: 0
+  epoch_iters: 5000
+  optim: "SGD"
+  lr_encoder: 0.02
+  lr_decoder: 0.02
+  lr_pow: 0.9
+  beta1: 0.9
+  weight_decay: 1e-4
+  deep_sup_scale: 0.4
+  fix_bn: False
+  workers: 16
+  disp_iter: 20
+  seed: 304
+
+VAL:
+  visualize: False
+  checkpoint: "epoch_30.pth"
+
+TEST:
+  checkpoint: "epoch_30.pth"
+  result: "./"
+
+DIR: "ckpt/ade20k-resnet50-upernet"
