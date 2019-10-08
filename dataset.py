@@ -539,23 +539,23 @@ class TestROPRidgeDataset(BaseROPRidgeDataset):
         ori_width, ori_height = img.size
 
         img_resized_list = []
-        for this_short_size in self.imgSizes:
-            # calculate target height and width
-            scale = min(this_short_size / float(min(ori_height, ori_width)),
-                        self.imgMaxSize / float(max(ori_height, ori_width)))
-            target_height, target_width = int(ori_height * scale), int(ori_width * scale)
+        this_short_size = self.imgSizes
+        # calculate target height and width
+        scale = min(this_short_size / float(min(ori_height, ori_width)),
+                    self.imgMaxSize / float(max(ori_height, ori_width)))
+        target_height, target_width = int(ori_height * scale), int(ori_width * scale)
 
-            # to avoid rounding in network
-            target_width = self.round2nearest_multiple(target_width, self.padding_constant)
-            target_height = self.round2nearest_multiple(target_height, self.padding_constant)
+        # to avoid rounding in network
+        target_width = self.round2nearest_multiple(target_width, self.padding_constant)
+        target_height = self.round2nearest_multiple(target_height, self.padding_constant)
 
-            # resize images
-            img_resized = imresize(img, (target_width, target_height), interp='bilinear')
+        # resize images
+        img_resized = imresize(img, (target_width, target_height), interp='bilinear')
 
-            # image transform, to torch float tensor 3xHxW
-            img_resized = self.img_transform(img_resized)
-            img_resized = torch.unsqueeze(img_resized, 0)
-            img_resized_list.append(img_resized)
+        # image transform, to torch float tensor 3xHxW
+        img_resized = self.img_transform(img_resized)
+        img_resized = torch.unsqueeze(img_resized, 0)
+        img_resized_list.append(img_resized)
 
         output = dict()
         output['img_ori'] = np.array(img)
