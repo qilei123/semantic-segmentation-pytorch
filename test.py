@@ -193,7 +193,7 @@ if __name__ == '__main__':
 
     assert os.path.exists(cfg.MODEL.weights_encoder) and \
         os.path.exists(cfg.MODEL.weights_decoder), "checkpoint does not exitst!"
-
+    '''
     # generate testing image list
     if os.path.isdir(args.imgs[0]):
         imgs = find_recursive(args.imgs[0])
@@ -201,7 +201,7 @@ if __name__ == '__main__':
         imgs = [args.imgs]
     assert len(imgs), "imgs should be a path to image (.jpg) or directory."
     cfg.list_test = [{'fpath_img': x} for x in imgs]
-
+    '''
     if not os.path.isdir(cfg.TEST.result):
         os.makedirs(cfg.TEST.result)
 
