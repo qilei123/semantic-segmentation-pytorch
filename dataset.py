@@ -471,11 +471,12 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
             for ann in anns[1:]:
                 mask += self.cocoAnno.annToMask(ann)
                 mask[mask >=1]=1      
-            '''
+            
             import cv2
+            cv2.imshow("img",cv2.imread(image_path))
             cv2.imshow("test",mask*255)
             cv2.waitKey(0)      
-            '''
+            
             segm = Image.fromarray(mask)
             assert(segm.mode == "L")
             assert(img.size[0] == segm.size[0])
