@@ -41,13 +41,16 @@ class SegmentationModule(SegmentationModuleBase):
             else:
                 pred = self.decoder(self.encoder(feed_dict['img_data'], return_feature_maps=True))
             showpred = pred[0][0].cpu().detach().numpy()
+            '''
             print(showpred)
             print(pred[0][1].cpu().detach().numpy())
+            '''
             '''
             print(torch.max(pred))
             print(torch.min(pred))
             print(torch.max(feed_dict['seg_label']))
             print(torch.min(feed_dict['seg_label']))
+            '''
             '''
             #print(feed_dict['seg_label'].size())
             
@@ -56,7 +59,7 @@ class SegmentationModule(SegmentationModuleBase):
             cv2.imshow("test",showpred+200)
             #cv2.imwrite("/data0/qilei_chen/test.png",showpred+200)
             cv2.waitKey(0)
-            
+            '''
             loss = self.crit(pred, feed_dict['seg_label'])
             if self.deep_sup_scale is not None:
                 loss_deepsup = self.crit(pred_deepsup, feed_dict['seg_label'])
