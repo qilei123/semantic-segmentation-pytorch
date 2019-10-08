@@ -521,10 +521,10 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
         #return self.num_sampleclass
 
 
-class TrainROPRidgeDataset(BaseROPRidgeDataset):
+class TestROPRidgeDataset(BaseROPRidgeDataset):
     def __init__(self, root_dataset,opt,img_folder,annotation_folder,
                 anno_filename, batch_per_gpu=1, **kwargs):
-        super(TrainROPRidgeDataset, self).__init__(root_dataset,
+        super(TestROPRidgeDataset, self).__init__(root_dataset,
                 opt,img_folder,annotation_folder,
                 anno_filename, **kwargs)
 
