@@ -560,7 +560,7 @@ class TestROPRidgeDataset(BaseROPRidgeDataset):
         output = dict()
         output['img_ori'] = np.array(img)
         output['img_data'] = [x.contiguous() for x in img_resized_list]
-        output['info'] = this_record['fpath_img']
+        output['info'] = this_record['file_name']
         return output
 
     def __len__(self):
