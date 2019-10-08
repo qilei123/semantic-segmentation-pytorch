@@ -148,8 +148,9 @@ if __name__ == '__main__':
     )
     parser.add_argument(
         "--imgs",
-        required=True,
+        required=False,
         type=str,
+        default="",
         help="an image paths, or a directory name"
     )
     parser.add_argument(
