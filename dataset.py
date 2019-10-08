@@ -474,9 +474,9 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
             
             import cv2
             print(image_path)
-            cv2.imshow("img",cv2.imread(image_path))
-            cv2.imshow("test",mask*255)
-            cv2.waitKey(0)      
+            #cv2.imshow("img",cv2.imread(image_path))
+            #cv2.imshow("test",mask*255)
+            #cv2.waitKey(0)      
             
             segm = Image.fromarray(mask)
             assert(segm.mode == "L")
