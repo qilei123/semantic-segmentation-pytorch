@@ -344,9 +344,10 @@ class BaseROPRidgeDataset(torch.utils.data.Dataset):
     def img_transform(self, img):
         # 0-255 to 0-1
         img = np.float32(np.array(img)) / 255.
-        print(np.max(img))
+        
         img = img.transpose((2, 0, 1))
         img = self.normalize(torch.from_numpy(img.copy()))
+        print(torch.min(img))
         return img
 
     def segm_transform(self, segm):
