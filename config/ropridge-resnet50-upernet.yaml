@@ -41,4 +41,4 @@ TEST:
   checkpoint: "epoch_30.pth"
   result: "./"
 
-DIR: "ckpt/ade20k-resnet50-upernet"
+DIR: "ckpt/ropridge-resnet50-upernet"
