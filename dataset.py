@@ -519,3 +519,49 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
     def __len__(self):
         return int(1e10) # It's a fake length due to the trick that every loader maintains its own list
         #return self.num_sampleclass
+
+
+class TrainROPRidgeDataset(BaseROPRidgeDataset):
+    def __init__(self, root_dataset,opt,img_folder,annotation_folder,
+                anno_filename, batch_per_gpu=1, **kwargs):
+        super(TrainROPRidgeDataset, self).__init__(root_dataset,
+                opt,img_folder,annotation_folder,
+                anno_filename, **kwargs)
+
+    def __getitem__(self, index):
+        this_record_id = self.list_sample[index]
+        this_record = self.cocoAnno.loadImgs([this_record_id])[0]
+        # load image
+        #image_path = this_record['fpath_img']
+        image_path = os.path.join(self.root_dataset, self.img_folder,this_record['file_name'])
+        img = Image.open(image_path).convert('RGB')
+
+        ori_width, ori_height = img.size
+
+        img_resized_list = []
+        for this_short_size in self.imgSizes:
+            # calculate target height and width
+            scale = min(this_short_size / float(min(ori_height, ori_width)),
+                        self.imgMaxSize / float(max(ori_height, ori_width)))
+            target_height, target_width = int(ori_height * scale), int(ori_width * scale)
+
+            # to avoid rounding in network
+            target_width = self.round2nearest_multiple(target_width, self.padding_constant)
+            target_height = self.round2nearest_multiple(target_height, self.padding_constant)
+
+            # resize images
+            img_resized = imresize(img, (target_width, target_height), interp='bilinear')
+
+            # image transform, to torch float tensor 3xHxW
+            img_resized = self.img_transform(img_resized)
+            img_resized = torch.unsqueeze(img_resized, 0)
+            img_resized_list.append(img_resized)
+
+        output = dict()
+        output['img_ori'] = np.array(img)
+        output['img_data'] = [x.contiguous() for x in img_resized_list]
+        output['info'] = this_record['fpath_img']
+        return output
+
+    def __len__(self):
+        return self.num_sample
