@@ -41,7 +41,7 @@ class SegmentationModule(SegmentationModuleBase):
             else:
                 pred = self.decoder(self.encoder(feed_dict['img_data'], return_feature_maps=True))
             showpred = pred.cpu().detach().numpy()
-            print(pred.size())
+            print(showpred.size())
             '''
             print(torch.max(pred))
             print(torch.min(pred))
