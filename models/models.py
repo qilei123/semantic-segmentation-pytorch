@@ -51,6 +51,7 @@ class SegmentationModule(SegmentationModuleBase):
             #print(feed_dict['seg_label'].size())
             
             import cv2
+            cv2.imwrite("/data0/qilei_chen/test.png",showpred+200)
             cv2.imshow("test",showpred+200)
             #cv2.imwrite("/data0/qilei_chen/test.png",showpred+200)
             cv2.waitKey(0)
