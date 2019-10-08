@@ -315,8 +315,8 @@ class BaseROPRidgeDataset(torch.utils.data.Dataset):
 
         # mean and std
         self.normalize = transforms.Normalize(
-            mean=[0.0, 0.0, 0.0],
-            std=[1, 1, 1])
+            mean=[0.5, 0.5, 0.5],
+            std=[0.5, 0.5, 0.5])
 
     def parse_input_list(self, root_dataset,annotation_folder,anno_filename, max_sample=-1, start_idx=-1, end_idx=-1):
         '''
