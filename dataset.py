@@ -359,7 +359,8 @@ class BaseROPRidgeDataset(torch.utils.data.Dataset):
 
     # Round x to the nearest multiple of p and x' >= x
     def round2nearest_multiple(self, x, p):
-        return ((x - 1) // p + 1) * p
+        return x
+        #return ((x - 1) // p + 1) * p
 
 class TrainROPRidgeDataset(BaseROPRidgeDataset):
     def __init__(self, root_dataset,opt,img_folder,annotation_folder,
