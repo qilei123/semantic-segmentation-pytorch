@@ -144,9 +144,10 @@ class TrainDataset(BaseDataset):
         batch_height = np.max(batch_heights)
         batch_width = int(self.round2nearest_multiple(batch_width, self.padding_constant))
         batch_height = int(self.round2nearest_multiple(batch_height, self.padding_constant))
-
+        '''
         assert self.padding_constant >= self.segm_downsampling_rate, \
             'padding constant must be equal or large than segm downsamping rate'
+        '''
         batch_images = torch.zeros(
             self.batch_per_gpu, 3, batch_height, batch_width)
         batch_segms = torch.zeros(
