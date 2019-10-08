@@ -356,7 +356,7 @@ class BaseROPRidgeDataset(torch.utils.data.Dataset):
         segm[segm>=1]=1
         #segm[segm==0]=-1
         #print(np.unique(segm))
-        segm = torch.from_numpy(segm).long() 
+        segm = torch.from_numpy(segm).long()
         return segm
 
     # Round x to the nearest multiple of p and x' >= x
