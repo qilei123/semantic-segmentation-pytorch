@@ -7,7 +7,7 @@ DATASET:
   num_class: 1
   imgSizes: (1200)
   imgMaxSize: 1600
-  padding_constant: 0
+  padding_constant: 2
   segm_downsampling_rate: 2
   random_flip: True
 
