@@ -380,7 +380,7 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
 
         # override dataset length when trainig with batch_per_gpu > 1
         self.cur_idx = 0
-        self.if_shuffled = False
+        self.if_shuffled = True
 
     def _get_sub_batch(self):
         while True:
