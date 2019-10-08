@@ -152,7 +152,7 @@ def main(cfg, gpus):
         weights=cfg.MODEL.weights_decoder)
 
     #crit = nn.NLLLoss(ignore_index=-1)
-    crit = nn.CrossEntropyLoss(ignore_index=-1)
+    crit = nn.CrossEntropyLoss(weight = [1,9],ignore_index=-1)
 
     if cfg.MODEL.arch_decoder.endswith('deepsup'):
         segmentation_module = SegmentationModule(
