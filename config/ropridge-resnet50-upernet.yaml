@@ -4,10 +4,10 @@ DATASET:
   list_val: "ridge_in_one_instances_val2014.json"
   img_folder_train: "train2014"
   img_folder_val: "val2014"
-  num_class: 1
+  num_class: 2
   imgSizes: (1200)
   imgMaxSize: 1600
-  padding_constant: 0
+  padding_constant: 4
   segm_downsampling_rate: 4
   random_flip: True
 

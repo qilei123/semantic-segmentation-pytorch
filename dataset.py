@@ -344,10 +344,10 @@ class BaseROPRidgeDataset(torch.utils.data.Dataset):
     def img_transform(self, img):
         # 0-255 to 0-1
         img = np.float32(np.array(img)) / 255.
-        print(np.unique(img))
+        #print(np.unique(img))
         img = img.transpose((2, 0, 1))
         img = self.normalize(torch.from_numpy(img.copy()))
-        print(torch.max(img))
+        #print(torch.max(img))
         return img
 
     def segm_transform(self, segm):
@@ -361,8 +361,8 @@ class BaseROPRidgeDataset(torch.utils.data.Dataset):
 
     # Round x to the nearest multiple of p and x' >= x
     def round2nearest_multiple(self, x, p):
-        return x
-        #return ((x - 1) // p + 1) * p
+        #return x
+        return ((x - 1) // p + 1) * p
 
 class TrainROPRidgeDataset(BaseROPRidgeDataset):
     def __init__(self, root_dataset,opt,img_folder,annotation_folder,
