@@ -18,8 +18,8 @@ MODEL:
 
 TRAIN:
   batch_size_per_gpu: 1
-  num_epoch: 15
-  start_epoch: 5
+  num_epoch: 25
+  start_epoch: 15
   epoch_iters: 3000
   optim: "SGD"
   lr_encoder: 0.02
@@ -38,7 +38,7 @@ VAL:
   checkpoint: "epoch_15.pth"
 
 TEST:
-  checkpoint: "epoch_8.pth"
+  checkpoint: "epoch_15.pth"
   result: "test_result/"
 
 DIR: "ropridge/ropridge-resnet50-upernet"
