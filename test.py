@@ -28,8 +28,9 @@ with open('data/object150_info.csv') as f:
 
 
 def visualize_result(data, pred, cfg):
-    (img, info) = data
-
+    (img, info,gt_mask) = data
+    for i in range(3):
+        img[i] = img[i]*gt_mask
     # print predictions in descending order
     pred = np.int32(pred)
     pixs = pred.size
@@ -83,7 +84,7 @@ def test(segmentation_module, loader, gpu):
 
         # visualization
         visualize_result(
-            (batch_data['img_ori'], batch_data['info']),
+            (batch_data['img_ori'], batch_data['info'],batch_data['gt_mask']),
             pred,
             cfg
         )

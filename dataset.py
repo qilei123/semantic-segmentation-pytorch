@@ -543,6 +543,17 @@ class TestROPRidgeDataset(BaseROPRidgeDataset):
         image_path = os.path.join(self.root_dataset, self.img_folder,this_record['file_name'])
         img = Image.open(image_path).convert('RGB')
 
+        annIds = self.cocoAnno.getAnnIds(imgIds = [this_record["id"]])
+        anns = self.cocoAnno.loadAnns(annIds)
+        
+        mask = self.cocoAnno.annToMask(anns[0])
+        
+        for ann in anns[1:]:
+            mask += self.cocoAnno.annToMask(ann)
+            mask[mask >=1]=1 
+        segm = Image.fromarray(mask)
+        
+
         ori_width, ori_height = img.size
 
         img_resized_list = []
@@ -558,6 +569,7 @@ class TestROPRidgeDataset(BaseROPRidgeDataset):
 
         # resize images
         img_resized = imresize(img, (target_width, target_height), interp='bilinear')
+        segm_resized = imresize(segm, (target_width, target_height), interp='nearest')
 
         # image transform, to torch float tensor 3xHxW
         img_resized = self.img_transform(img_resized)
@@ -568,6 +580,7 @@ class TestROPRidgeDataset(BaseROPRidgeDataset):
         output['img_ori'] = np.array(img)
         output['img_data'] = [x.contiguous() for x in img_resized_list]
         output['info'] = this_record['file_name']
+        output['gt_mask'] = np.array(segm_resized)
         return output
 
     def __len__(self):
