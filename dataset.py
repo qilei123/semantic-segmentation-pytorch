@@ -580,7 +580,7 @@ class TestROPRidgeDataset(BaseROPRidgeDataset):
         output['img_ori'] = np.array(img)
         output['img_data'] = [x.contiguous() for x in img_resized_list]
         output['info'] = this_record['file_name']
-        output['gt_mask'] = np.array(segm_resized)
+        output['gt_mask'] = mask#np.array(mask)
         return output
 
     def __len__(self):
