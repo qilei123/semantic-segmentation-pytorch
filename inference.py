@@ -17,7 +17,7 @@ from lib.utils import as_numpy
 from PIL import Image
 from tqdm import tqdm
 from config import cfg
-
+from torchvision import transforms
 colors = loadmat('data/color150.mat')['colors']
 names = {}
 with open('data/object150_info.csv') as f:
@@ -52,47 +52,101 @@ def visualize_result(data, pred, cfg):
     img_name = info.split('/')[-1]
     Image.fromarray(im_vis).save(
         os.path.join(cfg.TEST.result, img_name.replace('.jpg', '.png')))
+def imresize(im, size, interp='bilinear'):
+    if interp == 'nearest':
+        resample = Image.NEAREST
+    elif interp == 'bilinear':
+        resample = Image.BILINEAR
+    elif interp == 'bicubic':
+        resample = Image.BICUBIC
+    else:
+        raise Exception('resample method undefined!')
+
+    return im.resize(size, resample)
+def round2nearest_multiple(x, p):
+    #return x
+    return ((x - 1) // p + 1) * p
+
+def img_transform( img):
+    # 0-255 to 0-1
+    img = np.float32(np.array(img)) / 255.
+    #print(np.unique(img))
+    img = img.transpose((2, 0, 1))
+    normalize = transforms.Normalize(
+        mean=[0.5, 0.5, 0.5],
+        std=[0.5, 0.5, 0.5])
+    img = normalize(torch.from_numpy(img.copy()))
+    #print(torch.max(img))
+    return img
+def load_image(image_path,imgMinSize = 1200,imgMaxSize = 1600,padding_constant = 4):
+
+    img = Image.open(image_path).convert('RGB')
+
+    
+    ori_width, ori_height = img.size
+
+    img_resized_list = []
+    this_short_size = imgMinSize
+    # calculate target height and width
+    scale = min(this_short_size / float(min(ori_height, ori_width)),
+                imgMaxSize / float(max(ori_height, ori_width)))
+    target_height, target_width = int(ori_height * scale), int(ori_width * scale)
+
+    # to avoid rounding in network
+    target_width = round2nearest_multiple(target_width, padding_constant)
+    target_height = round2nearest_multiple(target_height, padding_constant)
+
+    # resize images
+    img_resized = imresize(img, (target_width, target_height), interp='bilinear')
 
 
-def test(segmentation_module, loader, gpu):
+    # image transform, to torch float tensor 3xHxW
+    img_resized = img_transform(img_resized)
+    img_resized = torch.unsqueeze(img_resized, 0)
+    img_resized_list.append(img_resized)
+
+    output = dict()
+    output['img_ori'] = np.array(img)
+    output['img_data'] = [x.contiguous() for x in img_resized_list]
+    output['info'] = os.path.basename(image_path)
+
+    return output
+
+def test(segmentation_module, image_path, gpu):
     segmentation_module.eval()
 
-    pbar = tqdm(total=len(loader))
-    for batch_data in loader:
-        # process data
-        batch_data = batch_data[0]
-        segSize = (batch_data['img_ori'].shape[0],
-                   batch_data['img_ori'].shape[1])
-        img_resized_list = batch_data['img_data']
+    batch_data = load_image(image_path)
+    segSize = (batch_data['img_ori'].shape[0],
+                batch_data['img_ori'].shape[1])
+    img_resized_list = batch_data['img_data']
 
-        with torch.no_grad():
-            scores = torch.zeros(1, cfg.DATASET.num_class, segSize[0], segSize[1])
-            scores = async_copy_to(scores, gpu)
+    with torch.no_grad():
+        scores = torch.zeros(1, cfg.DATASET.num_class, segSize[0], segSize[1])
+        scores = async_copy_to(scores, gpu)
 
-            for img in img_resized_list:
-                feed_dict = batch_data.copy()
-                feed_dict['img_data'] = img
-                del feed_dict['img_ori']
-                del feed_dict['info']
-                feed_dict = async_copy_to(feed_dict, gpu)
-                # forward pass
-                pred_tmp = segmentation_module(feed_dict, segSize=segSize)
-                scores = scores + pred_tmp / 1#len(cfg.DATASET.imgSizes)
+        for img in img_resized_list:
+            feed_dict = batch_data.copy()
+            feed_dict['img_data'] = img
+            del feed_dict['img_ori']
+            del feed_dict['info']
+            feed_dict = async_copy_to(feed_dict, gpu)
+            # forward pass
+            pred_tmp = segmentation_module(feed_dict, segSize=segSize)
+            scores = scores + pred_tmp / 1#len(cfg.DATASET.imgSizes)
 
-            _, pred = torch.max(scores, dim=1)
-            pred = as_numpy(pred.squeeze(0).cpu())
+        _, pred = torch.max(scores, dim=1)
+        pred = as_numpy(pred.squeeze(0).cpu())
 
-        # visualization
-        visualize_result(
-            (batch_data['img_ori'], batch_data['info'],batch_data['gt_mask']),
-            pred,
-            cfg
-        )
-
-        pbar.update(1)
+    # visualization
+    visualize_result(
+        (batch_data['img_ori'], batch_data['info']),
+        pred,
+        cfg
+    )
 
 
-def main(cfg, gpu):
+
+def inference(cfg, image_path,gpu=0):
     torch.cuda.set_device(gpu)
 
     # Network Builders
@@ -135,7 +189,7 @@ def main(cfg, gpu):
     segmentation_module.cuda()
 
     # Main loop
-    test(segmentation_module, loader_test, gpu)
+    test(segmentation_module, image_path, gpu)
 
     print('Inference done!')
 
@@ -203,7 +257,8 @@ if __name__ == '__main__':
     assert len(imgs), "imgs should be a path to image (.jpg) or directory."
     cfg.list_test = [{'fpath_img': x} for x in imgs]
     '''
+    
     if not os.path.isdir(cfg.TEST.result):
         os.makedirs(cfg.TEST.result)
-
-    main(cfg, args.gpu)
+    
+    inference(cfg,"", args.gpu)
