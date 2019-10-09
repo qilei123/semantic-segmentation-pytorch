@@ -12,7 +12,7 @@ DATASET:
   random_flip: True
 
 MODEL:
-  arch_encoder: "resnet50"
+  arch_encoder: "resnet101"
   arch_decoder: "upernet"
   fc_dim: 2048
 
@@ -38,7 +38,7 @@ VAL:
   checkpoint: "epoch_15.pth"
 
 TEST:
-  checkpoint: "epoch_10.pth"
-  result: "train_result_epoch10/"
+  checkpoint: "epoch_19.pth"
+  result: "train_result_epoch19/"
 
-DIR: "ropridge/ropridge-resnet50-upernet"
+DIR: "ropridge/ropridge-resnet101-upernet"
