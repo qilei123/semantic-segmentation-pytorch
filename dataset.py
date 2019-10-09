@@ -472,7 +472,7 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
                 mask += self.cocoAnno.annToMask(ann)
                 mask[mask >=1]=1      
             
-            import cv2
+            #import cv2
             #print(image_path)
             #cv2.imshow("img",cv2.imread(image_path))
             #cv2.imshow("test",mask*255)
@@ -483,10 +483,15 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
             assert(img.size[0] == segm.size[0])
             assert(img.size[1] == segm.size[1])
 
-            # random_flip
+            # Horizontally random_flip
             if np.random.choice([0, 1]):
                 img = img.transpose(Image.FLIP_LEFT_RIGHT)
                 segm = segm.transpose(Image.FLIP_LEFT_RIGHT)
+            
+            # Vertically random_flip
+            if np.random.choice([0, 1]):
+                img = img.transpose(Image.FLIP_TOP_BOTTOM)
+                segm = segm.transpose(Image.FLIP_TOP_BOTTOM)            
 
             # note that each sample within a mini batch has different scale param
             img = imresize(img, (batch_widths[i], batch_heights[i]), interp='bilinear')
