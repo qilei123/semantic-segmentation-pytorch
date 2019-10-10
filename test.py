@@ -158,14 +158,14 @@ if __name__ == '__main__':
         "--checkpoint",
         required=False,
         type=str,
-        default="epoch_20.pth",
+        default="",
         help="an image paths, or a directory name"
     )
     parser.add_argument(
         "--result",
         required=False,
         type=str,
-        default="test",
+        default="",
         help="an image paths, or a directory name"
     )
     parser.add_argument(
@@ -193,7 +193,11 @@ if __name__ == '__main__':
     cfg.merge_from_file(args.cfg)
     cfg.merge_from_list(args.opts)
     # cfg.freeze()
-
+    if len(args.checkpoint)>0:
+        cfg.TEST.checkpoint = args.checkpoint
+    if len(args.result)>0:
+        cfg.TEST.result = args.result  
+    print(cfg)  
     logger = setup_logger(distributed_rank=0)   # TODO
     logger.info("Loaded configuration file {}".format(args.cfg))
     logger.info("Running with config:\n{}".format(cfg))
