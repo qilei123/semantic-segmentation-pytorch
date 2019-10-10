@@ -1,2 +1,2 @@
 git pull
-python3 inference.py --gpu 0 --cfg config/ropridge-resnet50-upernet.yaml --image_path /data0/qilei_chen/old_alien/AI_EYE_IMGS/ROP_DATASET_with_label/9LESIONS/train2014/train_8328_789e6c67a5eb2cd674d77f41544fd6eb.png
+python3 inference.py --gpu 0 --cfg config/ropridge-resnet50-upernet.yaml --image_path /data0/qilei_chen/old_alien/AI_EYE_IMGS/ROP_DATASET_with_label/9LESIONS/train2014/train_151_4993edc7bc9a7735004a92f2b705a9e8.png
