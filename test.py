@@ -155,6 +155,20 @@ if __name__ == '__main__':
         help="an image paths, or a directory name"
     )
     parser.add_argument(
+        "--checkpoint",
+        required=False,
+        type=str,
+        default="epoch_20.pth",
+        help="an image paths, or a directory name"
+    )
+    parser.add_argument(
+        "--result",
+        required=False,
+        type=str,
+        default="test",
+        help="an image paths, or a directory name"
+    )
+    parser.add_argument(
         "--cfg",
         default="config/ade20k-resnet50dilated-ppm_deepsup.yaml",
         metavar="FILE",
@@ -173,6 +187,7 @@ if __name__ == '__main__':
         default=None,
         nargs=argparse.REMAINDER,
     )
+
     args = parser.parse_args()
 
     cfg.merge_from_file(args.cfg)
