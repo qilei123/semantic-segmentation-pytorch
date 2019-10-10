@@ -38,7 +38,7 @@ VAL:
   checkpoint: "epoch_15.pth"
 
 TEST:
-  checkpoint: "epoch_9.pth"
+  checkpoint: "epoch_10.pth"
   result: "test/"
 
 DIR: "ropridge/ropridge-resnet50-upernet"
