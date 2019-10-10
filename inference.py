@@ -202,8 +202,8 @@ if __name__ == '__main__':
         description="PyTorch Semantic Segmentation Testing"
     )
     parser.add_argument(
-        "--imgs",
-        required=False,
+        "--image_path",
+        required=True,
         type=str,
         default="",
         help="an image paths, or a directory name"
@@ -261,4 +261,4 @@ if __name__ == '__main__':
     if not os.path.isdir(cfg.TEST.result):
         os.makedirs(cfg.TEST.result)
     
-    inference(cfg,"", args.gpu)
+    inference(cfg,args.image_path, args.gpu)
