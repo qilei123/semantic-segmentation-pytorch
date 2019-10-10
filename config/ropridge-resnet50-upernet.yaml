@@ -1,9 +1,9 @@
 DATASET:
   root_dataset: "/data0/qilei_chen/old_alien/AI_EYE_IMGS/ROP_DATASET_with_label/9LESIONS/"
   list_train: "ridge_in_one_instances_train2014.json"
-  list_val: "ridge_in_one_instances_train2014.json"
+  list_val: "ridge_in_one_instances_val2014.json"
   img_folder_train: "train2014"
-  img_folder_val: "train2014"
+  img_folder_val: "val2014"
   num_class: 2
   imgSizes: (1200)
   imgMaxSize: 1600
