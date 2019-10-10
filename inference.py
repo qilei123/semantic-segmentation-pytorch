@@ -28,10 +28,10 @@ with open('data/object150_info.csv') as f:
 
 
 def visualize_result(data, pred, cfg):
-    (img, info,gt_mask) = data
+    (img, info) = data
     
     #for i in range(3):
-    img[:,:,2] = img[:,:,2]-img[:,:,2]*gt_mask+255*gt_mask
+    #img[:,:,2] = img[:,:,2]-img[:,:,2]*gt_mask+255*gt_mask
     # print predictions in descending order
     pred = np.int32(pred)
     pixs = pred.size
