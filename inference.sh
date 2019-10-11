@@ -1,2 +1,2 @@
 git pull
-python3 inference.py --gpu 0 --cfg config/ropridge-resnet50-upernet.yaml --image_path /data0/qilei_chen/Development/semantic-segmentation-pytorch/test/val_4280_723dcf77-bbf6-44be-9567-78ed71c1206b.32.jpg --checkpoint epoch_25.pth --result test
+python3 inference.py --gpu 0 --cfg config/ropridge-resnet50-upernet.yaml --image_path /data0/qilei_chen/Development/semantic-segmentation-pytorch/test/val_5424_cc9e864346e50602de4237d1f2d39292.jpg --checkpoint epoch_25.pth --result test
