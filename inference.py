@@ -209,6 +209,20 @@ if __name__ == '__main__':
         help="an image paths, or a directory name"
     )
     parser.add_argument(
+        "--checkpoint",
+        required=False,
+        type=str,
+        default="",
+        help="an image paths, or a directory name"
+    )
+    parser.add_argument(
+        "--result",
+        required=False,
+        type=str,
+        default="",
+        help="an image paths, or a directory name"
+    )
+    parser.add_argument(
         "--cfg",
         default="config/ade20k-resnet50dilated-ppm_deepsup.yaml",
         metavar="FILE",
@@ -232,7 +246,10 @@ if __name__ == '__main__':
     cfg.merge_from_file(args.cfg)
     cfg.merge_from_list(args.opts)
     # cfg.freeze()
-
+    if len(args.checkpoint)>0:
+        cfg.TEST.checkpoint = args.checkpoint
+    if len(args.result)>0:
+        cfg.TEST.result = args.result 
     logger = setup_logger(distributed_rank=0)   # TODO
     logger.info("Loaded configuration file {}".format(args.cfg))
     logger.info("Running with config:\n{}".format(cfg))

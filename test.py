@@ -197,7 +197,7 @@ if __name__ == '__main__':
         cfg.TEST.checkpoint = args.checkpoint
     if len(args.result)>0:
         cfg.TEST.result = args.result  
-    print(cfg.TEST.result)  
+  
     logger = setup_logger(distributed_rank=0)   # TODO
     logger.info("Loaded configuration file {}".format(args.cfg))
     logger.info("Running with config:\n{}".format(cfg))
