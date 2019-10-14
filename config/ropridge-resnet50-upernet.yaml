@@ -18,8 +18,8 @@ MODEL:
 
 TRAIN:
   batch_size_per_gpu: 1
-  num_epoch: 35
-  start_epoch: 25
+  num_epoch: 45
+  start_epoch: 35
   epoch_iters: 3000
   optim: "SGD"
   lr_encoder: 0.02
