@@ -42,6 +42,7 @@ def evaluate(segmentation_module, loader, cfg, gpu):
     acc_meter = AverageMeter()
     intersection_meter = AverageMeter()
     union_meter = AverageMeter()
+    groundthuth_meter = AverageMeter()
     time_meter = AverageMeter()
 
     segmentation_module.eval()
@@ -79,10 +80,11 @@ def evaluate(segmentation_module, loader, cfg, gpu):
 
         # calculate accuracy
         acc, pix = accuracy(pred, seg_label)
-        intersection, union = intersectionAndUnion(pred, seg_label, cfg.DATASET.num_class)
+        intersection, union ,groundthuth= intersectionAndUnion(pred, seg_label, cfg.DATASET.num_class)
         acc_meter.update(acc, pix)
         intersection_meter.update(intersection)
         union_meter.update(union)
+        groundthuth_meter.update(groundthuth)
 
         # visualization
         if cfg.VAL.visualize:
@@ -99,6 +101,9 @@ def evaluate(segmentation_module, loader, cfg, gpu):
     for i, _iou in enumerate(iou):
         print('class [{}], IoU: {:.4f}'.format(i, _iou))
 
+    sensitive_iou = intersection_meter.sum / (groundthuth_meter.sum + 1e-10)
+    for i, _iou in enumerate(sensitive_iou):
+        print('class [{}], Sensitive_IoU: {:.4f}'.format(i, _iou))
     print('[Eval Summary]:')
     print('Mean IoU: {:.4f}, Accuracy: {:.2f}%, Inference Time: {:.4f}s'
           .format(iou.mean(), acc_meter.average()*100, time_meter.average()))
