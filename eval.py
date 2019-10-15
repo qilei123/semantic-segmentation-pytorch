@@ -130,7 +130,7 @@ def main(cfg, gpu):
         cfg.DATASET.list_val,
         cfg.DATASET)
     '''
-    dataset_test = ValROPRidgeDataset(
+    dataset_val = ValROPRidgeDataset(
         root_dataset = cfg.DATASET.root_dataset,
         opt = cfg.DATASET,
         img_folder = cfg.DATASET.img_folder_val,
