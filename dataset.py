@@ -517,6 +517,10 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
                         fillcolor=0,
                         shear=0.0,
                         )                
+            import cv2
+            
+            cv2.imshow("test",np.asarray(img))
+            cv2.waitKey(0)
 
             # note that each sample within a mini batch has different scale param
             img = imresize(img, (batch_widths[i], batch_heights[i]), interp='bilinear')
