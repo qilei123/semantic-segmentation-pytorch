@@ -197,4 +197,4 @@ if __name__ == '__main__':
     if not os.path.isdir(os.path.join(cfg.DIR, "val")):
         os.makedirs(os.path.join(cfg.DIR, "val"))
 
-    main(cfg, args.gpu)
+    main(cfg, 0)
