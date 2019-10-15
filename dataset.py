@@ -504,6 +504,7 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
                 degree = 90
                 phase = np.random.choice([-1, 0, 1, 2])
                 rotate_degree = degree*phase#random.random() * 2 *degree  - degree
+                '''
                 img = tf.affine(
                         img,
                         translate=(0, 0),
@@ -522,7 +523,9 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
                         fillcolor=0,
                         shear=0.0,
                         )                
-            
+                '''
+                img = img.rotate(rotate_degree)
+                segm = segm.rotate(rotate_degree)
             
             cv2.imshow(this_record['file_name']+"_rotate_img",np.asarray(img))
             cv2.imshow(this_record['file_name']+"_rotate_seg",np.asarray(segm)*255)
