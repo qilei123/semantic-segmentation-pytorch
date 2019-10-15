@@ -70,7 +70,7 @@ class SegmentationModule(SegmentationModuleBase):
                 loss = loss + loss_deepsup * self.deep_sup_scale
 
             acc = self.pixel_acc(pred, feed_dict['seg_label'])
-            return loss, acc, heatmap
+            return loss, acc
         # inference
         else:
             pred = self.decoder(self.encoder(feed_dict['img_data'], return_feature_maps=True), segSize=segSize)
