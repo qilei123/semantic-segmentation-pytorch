@@ -89,7 +89,7 @@ def evaluate(segmentation_module, loader, cfg, gpu):
             visualize_result(
                 (batch_data['img_ori'], seg_label, batch_data['info']),
                 pred,
-                os.path.join(cfg.DIR, 'result')
+                os.path.join(cfg.DIR, 'val')
             )
 
         pbar.update(1)
