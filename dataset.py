@@ -531,7 +531,7 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
 class ValROPRidgeDataset(BaseROPRidgeDataset):
     def __init__(self, root_dataset,opt,img_folder,annotation_folder,
                 anno_filename, batch_per_gpu=1, **kwargs):
-        super(TestROPRidgeDataset, self).__init__(root_dataset,
+        super(ValROPRidgeDataset, self).__init__(root_dataset,
                 opt,img_folder,annotation_folder,
                 anno_filename, **kwargs)
 
