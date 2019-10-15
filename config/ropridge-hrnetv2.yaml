@@ -14,7 +14,7 @@ DATASET:
 MODEL:
   arch_encoder: "hrnetv2"
   arch_decoder: "c1"
-  fc_dim: 720
+  fc_dim: 320
 
 TRAIN:
   batch_size_per_gpu: 2
