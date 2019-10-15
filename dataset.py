@@ -524,8 +524,19 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
                         shear=0.0,
                         )                
                 '''
-                img = img.rotate(rotate_degree)
-                segm = segm.rotate(rotate_degree)
+                if phase == -1:
+                    rotate = Image.ROTATE_270
+                elif phase == 1:
+                    rotate = Image.ROTATE_90
+                elif phase == 2:
+                    rotate = Image.ROTATE_180
+                
+                if phase ==0:
+                    pass
+                else:
+
+                    img = img.transpose(rotate)
+                    segm = segm.transpose(rotate)
             
             cv2.imshow(this_record['file_name']+"_rotate_img",np.asarray(img))
             cv2.imshow(this_record['file_name']+"_rotate_seg",np.asarray(segm)*255)
