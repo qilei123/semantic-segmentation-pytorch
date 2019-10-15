@@ -62,7 +62,7 @@ class SegmentationModule(SegmentationModuleBase):
             #cv2.imwrite("/data0/qilei_chen/test.png",showpred+200)
             cv2.waitKey(0)
             '''
-            heatmap = self.softmax(pred)
+            #heatmap = self.softmax(pred)
             
             loss = self.crit(pred, feed_dict['seg_label'])
             if self.deep_sup_scale is not None:
