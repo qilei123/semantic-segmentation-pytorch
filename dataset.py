@@ -9,7 +9,7 @@ from pycocotools.coco import COCO
 import random
 import torchvision.transforms.functional as tf
 
-ROTATE=True
+ROTATE=False
 
 def imresize(im, size, interp='bilinear'):
     if interp == 'nearest':

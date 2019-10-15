@@ -5,8 +5,8 @@ DATASET:
   img_folder_train: "train2014"
   img_folder_val: "val2014"
   num_class: 2
-  imgSizes: (600)
-  imgMaxSize: 800
+  imgSizes: (1200)
+  imgMaxSize: 1600
   padding_constant: 4
   segm_downsampling_rate: 4
   random_flip: True
@@ -29,7 +29,7 @@ TRAIN:
   weight_decay: 1e-4
   deep_sup_scale: 0.4
   fix_bn: False
-  workers: 8
+  workers: 4
   disp_iter: 20
   seed: 304
 
