@@ -434,6 +434,7 @@ class HRNetV2(nn.Module):
         x = torch.cat([x[0], x1, x2, x3], 1)
 
         # x = self.last_layer(x)
+        print(x.size())
         return [x]
 
 
