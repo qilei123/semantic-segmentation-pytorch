@@ -519,7 +519,8 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
                         )                
             import cv2
             
-            cv2.imshow("test",np.asarray(img))
+            cv2.imshow("test_img",np.asarray(img))
+            cv2.imshow("test_seg",np.asarray(segm)*255)
             cv2.waitKey(0)
 
             # note that each sample within a mini batch has different scale param
