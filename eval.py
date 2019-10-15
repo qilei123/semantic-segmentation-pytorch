@@ -69,7 +69,7 @@ def evaluate(segmentation_module, loader, cfg, gpu):
 
                 # forward pass
                 scores_tmp = segmentation_module(feed_dict, segSize=segSize)
-                scores = scores + scores_tmp / len(cfg.DATASET.imgSizes)
+                scores = scores + scores_tmp / 1#len(cfg.DATASET.imgSizes)
 
             _, pred = torch.max(scores, dim=1)
             pred = as_numpy(pred.squeeze(0).cpu())
