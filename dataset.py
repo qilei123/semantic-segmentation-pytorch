@@ -7,6 +7,9 @@ from PIL import Image
 
 from pycocotools.coco import COCO
 import random
+import torchvision.transforms.functional as tf
+
+ROTATE=True
 
 def imresize(im, size, interp='bilinear'):
     if interp == 'nearest':
@@ -492,6 +495,28 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
             if np.random.choice([0, 1]):
                 img = img.transpose(Image.FLIP_TOP_BOTTOM)
                 segm = segm.transpose(Image.FLIP_TOP_BOTTOM)            
+
+            if ROTATE:
+                degree = 180
+                rotate_degree = random.random() * 2 *degree  - degree
+                img = tf.affine(
+                        img,
+                        translate=(0, 0),
+                        scale=1.0,
+                        angle=rotate_degree,
+                        resample=Image.BILINEAR,
+                        fillcolor=(0, 0, 0),
+                        shear=0.0,
+                        )
+                segm = tf.affine(
+                        mask,
+                        translate=(0, 0),
+                        scale=1.0,
+                        angle=rotate_degree,
+                        resample=Image.NEAREST,
+                        fillcolor=0,
+                        shear=0.0,
+                        )                
 
             # note that each sample within a mini batch has different scale param
             img = imresize(img, (batch_widths[i], batch_heights[i]), interp='bilinear')
