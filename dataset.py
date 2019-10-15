@@ -509,7 +509,7 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
                         shear=0.0,
                         )
                 segm = tf.affine(
-                        mask,
+                        segm,
                         translate=(0, 0),
                         scale=1.0,
                         angle=rotate_degree,
