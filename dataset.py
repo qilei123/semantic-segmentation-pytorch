@@ -503,8 +503,12 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
             '''
             if ROTATE:
                 degree = 90
-                phase = np.random.choice([-1, 0, 1, 2])
-                rotate_degree = degree*phase#random.random() * 2 *degree  - degree
+                rand = random.random()
+                if rand>=0 and rand<0.6:
+                    phase = 0
+                else:
+                    phase = np.random.choice([-1, 1, 2])
+                #rotate_degree = degree*phase#random.random() * 2 *degree  - degree
                 '''
                 img = tf.affine(
                         img,

@@ -33,6 +33,8 @@ class SegmentationModule(SegmentationModuleBase):
         self.crit = crit
         self.deep_sup_scale = deep_sup_scale
 
+        self.softmax = nn.Softmax(dim=0)
+
     def forward(self, feed_dict, *, segSize=None):
         # training
         if segSize is None:
@@ -60,16 +62,20 @@ class SegmentationModule(SegmentationModuleBase):
             #cv2.imwrite("/data0/qilei_chen/test.png",showpred+200)
             cv2.waitKey(0)
             '''
+            heatmap = self.softmax(pred)
+            
             loss = self.crit(pred, feed_dict['seg_label'])
             if self.deep_sup_scale is not None:
                 loss_deepsup = self.crit(pred_deepsup, feed_dict['seg_label'])
                 loss = loss + loss_deepsup * self.deep_sup_scale
 
             acc = self.pixel_acc(pred, feed_dict['seg_label'])
-            return loss, acc
+            return loss, acc, heatmap
         # inference
         else:
             pred = self.decoder(self.encoder(feed_dict['img_data'], return_feature_maps=True), segSize=segSize)
+            heatmap = self.softmax(pred)
+            print(heatmap)
             return pred
 
 
