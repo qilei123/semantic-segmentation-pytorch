@@ -495,6 +495,10 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
             if np.random.choice([0, 1]):
                 img = img.transpose(Image.FLIP_TOP_BOTTOM)
                 segm = segm.transpose(Image.FLIP_TOP_BOTTOM)            
+            import cv2
+            
+            cv2.imshow(this_record['file_name']+"_org_img",np.asarray(img))
+            cv2.imshow(this_record['file_name']+"_org_seg",np.asarray(segm)*255)            
 
             if ROTATE:
                 degree = 180
@@ -517,10 +521,10 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
                         fillcolor=0,
                         shear=0.0,
                         )                
-            import cv2
             
-            cv2.imshow(this_record['file_name']+"_test_img",np.asarray(img))
-            cv2.imshow(this_record['file_name']+"_test_seg",np.asarray(segm)*255)
+            
+            cv2.imshow(this_record['file_name']+"_rotate_img",np.asarray(img))
+            cv2.imshow(this_record['file_name']+"_rotate_seg",np.asarray(segm)*255)
             cv2.waitKey(0)
 
             # note that each sample within a mini batch has different scale param
