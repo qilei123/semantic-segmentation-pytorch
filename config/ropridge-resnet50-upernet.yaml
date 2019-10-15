@@ -35,7 +35,7 @@ TRAIN:
 
 VAL:
   visualize: True
-  checkpoint: "epoch_15.pth"
+  checkpoint: "epoch_26.pth"
 
 TEST:
   checkpoint: "epoch_10.pth"

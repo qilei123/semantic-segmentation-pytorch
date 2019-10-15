@@ -10,7 +10,7 @@ import torch.nn as nn
 from scipy.io import loadmat
 # Our libs
 from config import cfg
-from dataset import ValDataset
+from dataset import ValDataset,ValROPRidgeDataset
 from models import ModelBuilder, SegmentationModule
 from utils import AverageMeter, colorEncode, accuracy, intersectionAndUnion, setup_logger
 from lib.nn import user_scattered_collate, async_copy_to
@@ -164,6 +164,13 @@ if __name__ == '__main__':
         help="gpu to use"
     )
     parser.add_argument(
+        "--checkpoint",
+        required=False,
+        type=str,
+        default="",
+        help="an image paths, or a directory name"
+    )
+    parser.add_argument(
         "opts",
         help="Modify config options using the command-line",
         default=None,
@@ -187,7 +194,7 @@ if __name__ == '__main__':
     assert os.path.exists(cfg.MODEL.weights_encoder) and \
         os.path.exists(cfg.MODEL.weights_decoder), "checkpoint does not exitst!"
 
-    if not os.path.isdir(os.path.join(cfg.DIR, "result")):
-        os.makedirs(os.path.join(cfg.DIR, "result"))
+    if not os.path.isdir(os.path.join(cfg.DIR, "val")):
+        os.makedirs(os.path.join(cfg.DIR, "val"))
 
     main(cfg, args.gpu)
