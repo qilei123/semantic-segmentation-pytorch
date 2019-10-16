@@ -56,10 +56,10 @@ matplotlib.rcParams['font.sans-serif']=['SimHei']
 matplotlib.rcParams['axes.unicode_minus']=False
 
 plt.hist(width_vs_height, bins=40, normed=0, facecolor="blue", edgecolor="black", alpha=0.7)
-# 显示横轴标签
-plt.xlabel("区间")
-# 显示纵轴标签
-plt.ylabel("频数/频率")
-# 显示图标题
-plt.title("频数/频率分布直方图")
+
+plt.xlabel("region")
+
+plt.ylabel("frequency")
+
+plt.title("Hist")
 plt.show()
