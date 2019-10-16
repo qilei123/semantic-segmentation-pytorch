@@ -14,5 +14,7 @@ for imgId in imgIds:
     anns = cocoAnno.loadAnns(annIds)
     for ann in anns:
         print(ann)
+        mask = cocoAnno.annToMask(anns[0])
+        print(len(mask>0))
         
     break
