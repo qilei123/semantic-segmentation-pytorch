@@ -31,6 +31,12 @@ for imgId in imgIds:
             width_vs_height[wvsh_index]+=1
     mask[mask >1]=1
     seg_count = mask[(mask==1)]
-    
+
+    seg_vs_img_index =  int(math.floor((float(seg_count.size)/float(img_area))/0.01))
+    if seg_vs_img_index>=40:
+        seg_vs_img[39] +=1
+    else:
+        seg_vs_img[seg_vs_img_index] +=1
         
 print(width_vs_height)
+print(seg_vs_img)
