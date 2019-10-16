@@ -9,4 +9,6 @@ imgIds = cocoAnno.getImgIds()
 
 for imgId in imgIds:
     img_record = cocoAnno.loadImgs([imgId])[0]
-    print(img_record)
+    annIds = cocoAnno.getAnnIds(imgIds = [img_record["id"]])
+    print(annIds)
+    break
