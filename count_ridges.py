@@ -15,6 +15,7 @@ for imgId in imgIds:
     for ann in anns:
         print(ann)
         mask = cocoAnno.annToMask(anns[0])
-        print((mask>0))
+        seg_count = mask[(mask==1)]
+        print(seg_count.size)
         
     break
