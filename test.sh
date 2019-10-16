@@ -1,6 +1,6 @@
 git pull
 #python3 test.py --gpu 0 --cfg config/ropridge-resnet50-upernet.yaml --checkpoint epoch_5.pth --result val5_res50
-python3 test.py --gpu 0 --cfg config/ropridge-resnet50-upernet.yaml --checkpoint epoch_7.pth --result val7_res50_rotate
+#python3 test.py --gpu 0 --cfg config/ropridge-resnet50-upernet.yaml --checkpoint epoch_7.pth --result val7_res50_rotate
 #python3 test.py --gpu 0 --cfg config/ropridge-resnet50-upernet.yaml --checkpoint epoch_10.pth --result val10_res50
 #python3 test.py --gpu 0 --cfg config/ropridge-resnet50-upernet.yaml --checkpoint epoch_15.pth --result val15_res50
 #python3 test.py --gpu 0 --cfg config/ropridge-resnet50-upernet.yaml --checkpoint epoch_20.pth --result val20_res50
@@ -22,3 +22,5 @@ python3 test.py --gpu 0 --cfg config/ropridge-resnet50-upernet.yaml --checkpoint
 #python3 test.py --gpu 0 --cfg config/ropridge-resnet101-upernet.yaml --checkpoint epoch_25.pth --result val25_res101
 #python3 test.py --gpu 0 --cfg config/ropridge-resnet101-upernet.yaml --checkpoint epoch_30.pth --result val30_res101
 #python3 test.py --gpu 0 --cfg config/ropridge-resnet101-upernet.yaml --checkpoint epoch_35.pth --result val35_res101
+
+python3 test.py --gpu 0 --cfg config/ropridge-hrnetv2.yaml --checkpoint epoch_4.pth --result hrnetv2_e4_val
