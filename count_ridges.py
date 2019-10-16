@@ -6,9 +6,13 @@ anno_filename = "ridge_in_one_instances_train2014.json"
 cocoAnno = COCO(os.path.join(root_dataset,annotation_folder,anno_filename))
 
 imgIds = cocoAnno.getImgIds()
-
+width_vs_height = [0 for i in range(30)]
+seg_vs_img = [0 for i in range(30)]
 for imgId in imgIds:
     img_record = cocoAnno.loadImgs([imgId])[0]
     annIds = cocoAnno.getAnnIds(imgIds = [img_record["id"]])
-    print(annIds)
+    anns = cocoAnno.loadAnns(annIds)
+    for ann in anns:
+        print(ann)
+        
     break
