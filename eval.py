@@ -191,13 +191,13 @@ if __name__ == '__main__':
         nargs=argparse.REMAINDER,
     )
     args = parser.parse_args()
-    if len(args.checkpoint)>0:
-        cfg.VAL.checkpoint = args.checkpoint
-    print("----------"+cfg.VAL.checkpoint)
+
     cfg.merge_from_file(args.cfg)
     cfg.merge_from_list(args.opts)
     # cfg.freeze()
-
+    if len(args.checkpoint)>0:
+        cfg.VAL.checkpoint = args.checkpoint
+    print("----------"+cfg.VAL.checkpoint)
     logger = setup_logger(distributed_rank=0)   # TODO
     logger.info("Loaded configuration file {}".format(args.cfg))
     logger.info("Running with config:\n{}".format(cfg))
