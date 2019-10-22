@@ -193,6 +193,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     if len(args.checkpoint)>0:
         cfg.VAL.checkpoint = args.checkpoint
+    print("----------"+cfg.VAL.checkpoint)
     cfg.merge_from_file(args.cfg)
     cfg.merge_from_list(args.opts)
     # cfg.freeze()
