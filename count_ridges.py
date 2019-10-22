@@ -35,6 +35,8 @@ for imgId in imgIds:
     for ann in anns[1:]:
         mask += cocoAnno.annToMask(ann)
         width_vs_height_ratio = float(ann["bbox"][2])/float(ann["bbox"][3])
+        if width_vs_height_ratio>1:
+            width_vs_height_ratio = 1/width_vs_height_ratio
         wvsh_index = int(math.floor(width_vs_height_ratio/0.1))
         record_width_vs_height.append(wvsh_index)
         if wvsh_index>=40:
