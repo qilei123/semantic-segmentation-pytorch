@@ -16,7 +16,7 @@ seg_vs_img = [0 for i in range(40)]
 
 record_width_vs_height = []
 record_seg_vs_img = []
-
+STRATEGY = 1
 for imgId in imgIds:
     img_record = cocoAnno.loadImgs([imgId])[0]
     img_area = float(img_record["height"]*img_record["width"])
@@ -24,7 +24,7 @@ for imgId in imgIds:
     anns = cocoAnno.loadAnns(annIds)
     mask = cocoAnno.annToMask(anns[0])
     width_vs_height_ratio = float(anns[0]["bbox"][2])/float(anns[0]["bbox"][3])
-    if width_vs_height_ratio>1:
+    if width_vs_height_ratio>1 and STRATEGY==1:
         width_vs_height_ratio = 1/width_vs_height_ratio
     wvsh_index = int(math.floor(width_vs_height_ratio/0.1))
     record_width_vs_height.append(wvsh_index)
@@ -35,7 +35,7 @@ for imgId in imgIds:
     for ann in anns[1:]:
         mask += cocoAnno.annToMask(ann)
         width_vs_height_ratio = float(ann["bbox"][2])/float(ann["bbox"][3])
-        if width_vs_height_ratio>1:
+        if width_vs_height_ratio>1 and STRATEGY==1:
             width_vs_height_ratio = 1/width_vs_height_ratio
         wvsh_index = int(math.floor(width_vs_height_ratio/0.1))
         record_width_vs_height.append(wvsh_index)
