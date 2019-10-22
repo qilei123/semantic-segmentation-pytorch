@@ -1,5 +1,5 @@
 git pull
-python3 eval.py --gpu 0 --cfg config/ropridge-resnet50-upernet.yaml --checkpoint epoch_26.pth
+#python3 eval.py --gpu 0 --cfg config/ropridge-resnet50-upernet.yaml --checkpoint epoch_26.pth
 #python3 test.py --gpu 0 --cfg config/ropridge-resnet50-upernet.yaml --checkpoint epoch_5.pth --result val5_res50
 #python3 test.py --gpu 0 --cfg config/ropridge-resnet50-upernet.yaml --checkpoint epoch_10.pth --result val10_res50
 #python3 test.py --gpu 0 --cfg config/ropridge-resnet50-upernet.yaml --checkpoint epoch_15.pth --result val15_res50
@@ -22,3 +22,24 @@ python3 eval.py --gpu 0 --cfg config/ropridge-resnet50-upernet.yaml --checkpoint
 #python3 test.py --gpu 0 --cfg config/ropridge-resnet101-upernet.yaml --checkpoint epoch_25.pth --result val25_res101
 #python3 test.py --gpu 0 --cfg config/ropridge-resnet101-upernet.yaml --checkpoint epoch_30.pth --result val30_res101
 #python3 test.py --gpu 0 --cfg config/ropridge-resnet101-upernet.yaml --checkpoint epoch_35.pth --result val35_res101
+python3 eval.py --gpu 0 --cfg config/ropridge-hrnetv2.yaml --checkpoint epoch_5.pth
+python3 eval.py --gpu 0 --cfg config/ropridge-hrnetv2.yaml --checkpoint epoch_6.pth
+python3 eval.py --gpu 0 --cfg config/ropridge-hrnetv2.yaml --checkpoint epoch_7.pth
+python3 eval.py --gpu 0 --cfg config/ropridge-hrnetv2.yaml --checkpoint epoch_8.pth
+python3 eval.py --gpu 0 --cfg config/ropridge-hrnetv2.yaml --checkpoint epoch_9.pth
+python3 eval.py --gpu 0 --cfg config/ropridge-hrnetv2.yaml --checkpoint epoch_10.pth
+python3 eval.py --gpu 0 --cfg config/ropridge-hrnetv2.yaml --checkpoint epoch_11.pth
+python3 eval.py --gpu 0 --cfg config/ropridge-hrnetv2.yaml --checkpoint epoch_12.pth
+python3 eval.py --gpu 0 --cfg config/ropridge-hrnetv2.yaml --checkpoint epoch_13.pth
+python3 eval.py --gpu 0 --cfg config/ropridge-hrnetv2.yaml --checkpoint epoch_14.pth
+python3 eval.py --gpu 0 --cfg config/ropridge-hrnetv2.yaml --checkpoint epoch_15.pth
+python3 eval.py --gpu 0 --cfg config/ropridge-hrnetv2.yaml --checkpoint epoch_16.pth
+python3 eval.py --gpu 0 --cfg config/ropridge-hrnetv2.yaml --checkpoint epoch_17.pth
+python3 eval.py --gpu 0 --cfg config/ropridge-hrnetv2.yaml --checkpoint epoch_18.pth
+python3 eval.py --gpu 0 --cfg config/ropridge-hrnetv2.yaml --checkpoint epoch_19.pth
+python3 eval.py --gpu 0 --cfg config/ropridge-hrnetv2.yaml --checkpoint epoch_20.pth
+python3 eval.py --gpu 0 --cfg config/ropridge-hrnetv2.yaml --checkpoint epoch_21.pth
+python3 eval.py --gpu 0 --cfg config/ropridge-hrnetv2.yaml --checkpoint epoch_22.pth
+python3 eval.py --gpu 0 --cfg config/ropridge-hrnetv2.yaml --checkpoint epoch_23.pth
+python3 eval.py --gpu 0 --cfg config/ropridge-hrnetv2.yaml --checkpoint epoch_24.pth
+python3 eval.py --gpu 0 --cfg config/ropridge-hrnetv2.yaml --checkpoint epoch_25.pth
