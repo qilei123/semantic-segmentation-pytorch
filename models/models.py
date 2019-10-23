@@ -12,8 +12,8 @@ class SegmentationModuleBase(nn.Module):
 
     def pixel_acc(self, pred, label):
         _, preds = torch.max(pred, dim=1)
-        print("preds:"+str(torch.unique(preds)))
-        print("label:"+str(torch.unique(label)))
+        #print("preds:"+str(torch.unique(preds)))
+        #print("label:"+str(torch.unique(label)))
         #print(torch.min(pred))
         valid = (label >= 0).long()
         #print(torch.max(valid))
