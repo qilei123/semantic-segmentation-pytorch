@@ -356,7 +356,7 @@ class BaseROPRidgeDataset(torch.utils.data.Dataset):
     def segm_transform(self, segm):
         # to tensor, -1 to 149
         segm = np.array(segm)
-        segm[segm>=1]=1
+        #segm[segm>=1]=1
         #segm[segm==0]=-1
         #print(np.unique(segm))
         segm = torch.from_numpy(segm).long()
@@ -474,7 +474,7 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
             for ann in anns[1:]:
                 tmask = self.cocoAnno.annToMask(ann)
                 mask[tmask ==1]= ann["category_id"]     
-            print("mask:"+str(np.unique(mask)))
+            #print("mask:"+str(np.unique(mask)))
             #import cv2
             #print(image_path)
             #cv2.imshow("img",cv2.imread(image_path))
