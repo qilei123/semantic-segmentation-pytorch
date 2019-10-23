@@ -427,6 +427,7 @@ class C1(nn.Module):
         else:
             x = nn.functional.log_softmax(x, dim=1)
         if DEBUG_AUX:
+            print(conv_out[1])
             return x,conv_out[1]
         return x
 
