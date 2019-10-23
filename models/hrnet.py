@@ -471,10 +471,10 @@ class HRNetV2(nn.Module):
             x[2], size=(x0_h, x0_w), mode='bilinear', align_corners=False)
         x3 = F.interpolate(
             x[3], size=(x0_h, x0_w), mode='bilinear', align_corners=False)
-
-        x = torch.cat([x[0], x1, x2, x3], 1)
         if DEBUG_AUX:
             x_aux = self.AuxLogits(x[3])
+        x = torch.cat([x[0], x1, x2, x3], 1)
+
         # x = self.last_layer(x)
         if DEBUG_AUX:
             return [x,x_aux]
