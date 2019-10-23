@@ -474,7 +474,7 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
             for ann in anns[1:]:
                 tmask = self.cocoAnno.annToMask(ann)
                 mask[tmask ==1]= ann["category_id"]     
-            
+            print("mask:"+str(np.unique(mask)))
             #import cv2
             #print(image_path)
             #cv2.imshow("img",cv2.imread(image_path))
