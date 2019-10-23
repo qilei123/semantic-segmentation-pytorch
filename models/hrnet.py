@@ -255,6 +255,44 @@ blocks_dict = {
     'BOTTLENECK': Bottleneck
 }
 
+class BasicConv2d(nn.Module):
+
+    def __init__(self, in_channels, out_channels, **kwargs):
+        super(BasicConv2d, self).__init__()
+        self.conv = nn.Conv2d(in_channels, out_channels, bias=False, **kwargs)
+        self.bn = nn.BatchNorm2d(out_channels, eps=0.001)
+
+    def forward(self, x):
+        x = self.conv(x)
+        x = self.bn(x)
+        return F.relu(x, inplace=True)
+
+class HRAux(nn.Module):
+
+    def __init__(self, in_channels, num_classes):
+        super(HRAux, self).__init__()
+        self.conv0 = BasicConv2d(in_channels, 128, kernel_size=1)
+        self.conv1 = BasicConv2d(128, 768, kernel_size=5)
+        self.conv1.stddev = 0.01
+        self.fc = nn.Linear(768, num_classes)
+        self.fc.stddev = 0.001
+
+    def forward(self, x):
+        # N x 768 x 17 x 17
+        x = F.avg_pool2d(x, kernel_size=5, stride=3)
+        # N x 768 x 5 x 5
+        x = self.conv0(x)
+        # N x 128 x 5 x 5
+        x = self.conv1(x)
+        # N x 768 x 1 x 1
+        # Adaptive average pooling
+        x = F.adaptive_avg_pool2d(x, (1, 1))
+        # N x 768 x 1 x 1
+        x = x.view(x.size(0), -1)
+        # N x 768
+        x = self.fc(x)
+        # N x 1000
+        return x
 
 class HRNetV2(nn.Module):
     def __init__(self, n_class, **kwargs):
