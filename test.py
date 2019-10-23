@@ -82,6 +82,7 @@ def test(segmentation_module, loader, gpu):
             #print(scores)
             _, pred = torch.max(scores, dim=1)
             print(pred.size())
+            print(torch.unique(pred))
             pred = as_numpy(pred.squeeze(0).cpu())
         
         # visualization
