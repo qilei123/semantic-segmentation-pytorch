@@ -45,7 +45,7 @@ def visualize_result(data, pred, cfg):
 
     # colorize prediction
     pred_color = colorEncode(pred, colors).astype(np.uint8)
-
+    print(pred_color.size())
     # aggregate images and save
     im_vis = np.concatenate((img, pred_color), axis=1)
 
@@ -81,7 +81,7 @@ def test(segmentation_module, loader, gpu):
 
             _, pred = torch.max(scores, dim=1)
             pred = as_numpy(pred.squeeze(0).cpu())
-        print(pred.size())
+        
         # visualization
         visualize_result(
             (batch_data['img_ori'], batch_data['info'],batch_data['gt_mask']),
