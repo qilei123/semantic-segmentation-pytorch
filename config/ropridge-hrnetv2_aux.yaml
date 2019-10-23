@@ -1,10 +1,10 @@
 DATASET:
   root_dataset: "/data0/qilei_chen/old_alien/AI_EYE_IMGS/ROP_DATASET_with_label/9LESIONS/"
-  list_train: "ridge_in_three_instances_train2014.json"
-  list_val: "ridge_in_three_instances_val2014.json"
+  list_train: "ridge_in_one_instances_train2014.json"
+  list_val: "ridge_in_one_instances_val2014.json"
   img_folder_train: "train2014"
   img_folder_val: "val2014"
-  num_class: 4
+  num_class: 2
   imgSizes: (900)
   imgMaxSize: 1200
   padding_constant: 4
@@ -15,11 +15,12 @@ MODEL:
   arch_encoder: "hrnetv2"
   arch_decoder: "c1"
   fc_dim: 720
+  with_aux: True
 
 TRAIN:
-  batch_size_per_gpu: 4
+  batch_size_per_gpu: 2
   num_epoch: 50
-  start_epoch: 0
+  start_epoch: 30
   epoch_iters: 2000
   optim: "SGD"
   lr_encoder: 0.02
@@ -29,11 +30,10 @@ TRAIN:
   weight_decay: 1e-4
   deep_sup_scale: 0.4
   fix_bn: False
-  workers: 32
+  workers: 16
   disp_iter: 20
   seed: 304
-  class_weight: [1.0,10.0,2.0,2.0]
-
+  class_weight: [1.0,9.0]
 VAL:
   visualize: False
   checkpoint: "epoch_30.pth"
@@ -42,4 +42,4 @@ TEST:
   checkpoint: "epoch_30.pth"
   result: "./"
 
-DIR: "ropridge/ropridge3-hrnetv2-c1"
+DIR: "ropridge/ropridge-hrnetv2-c1"

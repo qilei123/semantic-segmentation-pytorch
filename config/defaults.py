@@ -43,6 +43,8 @@ _C.MODEL.weights_decoder = ""
 # number of feature channels between encoder and decoder
 _C.MODEL.fc_dim = 2048
 
+_C.MODEL.with_aux = False
+
 # -----------------------------------------------------------------------------
 # Training
 # -----------------------------------------------------------------------------
