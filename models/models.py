@@ -74,6 +74,7 @@ class SegmentationModule(SegmentationModuleBase):
         # inference
         else:
             pred = self.decoder(self.encoder(feed_dict['img_data'], return_feature_maps=True), segSize=segSize)
+            print(pred.size())
             #print(pred)
             #heatmap = self.softmax(pred)
             #print(heatmap)

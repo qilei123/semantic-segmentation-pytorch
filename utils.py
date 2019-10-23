@@ -112,7 +112,7 @@ def colorEncode(labelmap, colors, mode='RGB'):
     labelmap = labelmap.astype('int')
     labelmap_rgb = np.zeros((labelmap.shape[0], labelmap.shape[1], 3),
                             dtype=np.uint8)
-    print(unique(labelmap))
+    #print(unique(labelmap))
     for label in unique(labelmap):
         if label < 0:
             continue

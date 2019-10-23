@@ -129,7 +129,7 @@ def main(cfg, gpu):
         batch_size=cfg.TEST.batch_size,
         shuffle=False,
         collate_fn=user_scattered_collate,
-        num_workers=5,
+        num_workers=8,
         drop_last=True)
 
     segmentation_module.cuda()
