@@ -26,6 +26,7 @@ class SegmentationModuleBase(nn.Module):
         acc = acc_sum.float() / (pixel_sum.float() + 1e-10)
         return acc
 
+DEBUG_AUX = True
 
 class SegmentationModule(SegmentationModuleBase):
     def __init__(self, net_enc, net_dec, crit, deep_sup_scale=None):
@@ -37,13 +38,19 @@ class SegmentationModule(SegmentationModuleBase):
 
         self.softmax = nn.Softmax(dim=1)
 
+        if DEBUG_AUX:
+            self.aux_loss = nn.CrossEntropyLoss()
+
     def forward(self, feed_dict, *, segSize=None):
         # training
         if segSize is None:
             if self.deep_sup_scale is not None: # use deep supervision technique
                 (pred, pred_deepsup) = self.decoder(self.encoder(feed_dict['img_data'], return_feature_maps=True))
             else:
-                pred = self.decoder(self.encoder(feed_dict['img_data'], return_feature_maps=True))
+                if DEBUG_AUX:
+                    (pred,pred_label) = self.decoder(self.encoder(feed_dict['img_data'], return_feature_maps=True))
+                else:
+                    pred = self.decoder(self.encoder(feed_dict['img_data'], return_feature_maps=True))
             showpred = pred[0][0].cpu().detach().numpy()
             '''
             print(showpred)
@@ -65,8 +72,10 @@ class SegmentationModule(SegmentationModuleBase):
             cv2.waitKey(0)
             '''
             #heatmap = self.softmax(pred)
-            
-            loss = self.crit(pred, feed_dict['seg_label'])
+            if DEBUG_AUX:
+                loss = self.crit(pred, feed_dict['seg_label'])+self.aux_loss(pred_label,feed_dict['img_label'])
+            else:
+                loss = self.crit(pred, feed_dict['seg_label'])
             if self.deep_sup_scale is not None:
                 loss_deepsup = self.crit(pred_deepsup, feed_dict['seg_label'])
                 loss = loss + loss_deepsup * self.deep_sup_scale
@@ -407,7 +416,7 @@ class C1(nn.Module):
         self.conv_last = nn.Conv2d(fc_dim // 4, num_class, 1, 1, 0)
 
     def forward(self, conv_out, segSize=None):
-        conv5 = conv_out[-1]
+        conv5 = conv_out[0]
         x = self.cbr(conv5)
         x = self.conv_last(x)
 

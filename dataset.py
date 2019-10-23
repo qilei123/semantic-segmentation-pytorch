@@ -455,7 +455,7 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
             self.batch_per_gpu,
             batch_height // self.segm_downsampling_rate,
             batch_width // self.segm_downsampling_rate).long()
-
+        batch_labels = torch.zeros(self.batch_per_gpu).long()
         for i in range(self.batch_per_gpu):
             this_record = batch_records[i]
 
@@ -471,9 +471,12 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
             
             mask = self.cocoAnno.annToMask(anns[0])
             mask[mask==1]=anns[0]["category_id"]
+            label = anns[0]["category_id"]
             for ann in anns[1:]:
                 tmask = self.cocoAnno.annToMask(ann)
-                mask[tmask ==1]= ann["category_id"]     
+                mask[tmask ==1]= ann["category_id"] 
+                if (ann["category_id"]>label):
+                    label = ann["category_id"]    
             #print("mask:"+str(np.unique(mask)))
             #import cv2
             #print(image_path)
@@ -497,7 +500,6 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
                 segm = segm.transpose(Image.FLIP_TOP_BOTTOM)            
             '''
             import cv2
-            
             cv2.imshow(this_record['file_name']+"_org_img",np.asarray(img))
             cv2.imshow(this_record['file_name']+"_org_seg",np.asarray(segm)*255)            
             '''
@@ -572,10 +574,11 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
             # put into batch arrays
             batch_images[i][:, :img.shape[1], :img.shape[2]] = img
             batch_segms[i][:segm.shape[0], :segm.shape[1]] = segm
-
+            batch_labels[i] = label
         output = dict()
         output['img_data'] = batch_images
         output['seg_label'] = batch_segms
+        output['img_label'] = batch_labels
         return output
 
     def __len__(self):

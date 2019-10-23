@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 
 __all__ = ['hrnetv2']
 
+DEBUG_AUX = True
 
 model_urls = {
     'hrnetv2': 'http://sceneparsing.csail.mit.edu/model/pretrained_resnet/hrnetv2_w48-imagenet.pth',
@@ -271,10 +272,10 @@ class HRAux(nn.Module):
 
     def __init__(self, in_channels, num_classes):
         super(HRAux, self).__init__()
-        self.conv0 = BasicConv2d(in_channels, 128, kernel_size=1)
-        self.conv1 = BasicConv2d(128, 768, kernel_size=5)
-        self.conv1.stddev = 0.01
-        self.fc = nn.Linear(768, num_classes)
+        self.conv0 = BasicConv2d(in_channels, 1024, kernel_size=1)
+        #self.conv1 = BasicConv2d(128, 768, kernel_size=5)
+        self.conv0.stddev = 0.01
+        self.fc = nn.Linear(2048, num_classes)
         self.fc.stddev = 0.001
 
     def forward(self, x):
@@ -283,7 +284,7 @@ class HRAux(nn.Module):
         # N x 768 x 5 x 5
         x = self.conv0(x)
         # N x 128 x 5 x 5
-        x = self.conv1(x)
+        # x = self.conv1(x)
         # N x 768 x 1 x 1
         # Adaptive average pooling
         x = F.adaptive_avg_pool2d(x, (1, 1))
@@ -343,6 +344,8 @@ class HRNetV2(nn.Module):
             pre_stage_channels, num_channels)
         self.stage4, pre_stage_channels = self._make_stage(
             self.stage4_cfg, num_channels, multi_scale_output=True)
+        if DEBUG_AUX:
+            self.AuxLogits = HRAux(384, n_class)
 
     def _make_transition_layer(
             self, num_channels_pre_layer, num_channels_cur_layer):
@@ -470,9 +473,11 @@ class HRNetV2(nn.Module):
             x[3], size=(x0_h, x0_w), mode='bilinear', align_corners=False)
 
         x = torch.cat([x[0], x1, x2, x3], 1)
-
+        if DEBUG_AUX:
+            x_aux = self.AuxLogits(x[3])
         # x = self.last_layer(x)
-
+        if DEBUG_AUX:
+            return [x,x_aux]
         return [x]
 
 
