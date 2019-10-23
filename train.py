@@ -154,7 +154,7 @@ def main(cfg, gpus):
         weights=cfg.MODEL.weights_decoder)
 
     #crit = nn.NLLLoss(ignore_index=-1)
-    crit = nn.CrossEntropyLoss(weight = torch.tensor([1.0,9.0]),ignore_index=-1)
+    crit = nn.CrossEntropyLoss(weight = torch.tensor(cfg.TRAIN.class_weight),ignore_index=-1)
 
     if cfg.MODEL.arch_decoder.endswith('deepsup'):
         segmentation_module = SegmentationModule(

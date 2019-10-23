@@ -32,7 +32,7 @@ TRAIN:
   workers: 20
   disp_iter: 20
   seed: 304
-
+  class_weight: [1.0,9.0]
 VAL:
   visualize: True
   checkpoint: "epoch_26.pth"
