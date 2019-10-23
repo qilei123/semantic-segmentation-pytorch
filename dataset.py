@@ -301,7 +301,7 @@ class TestDataset(BaseDataset):
     def __len__(self):
         return self.num_sample
 
-
+DEBUG_AUX = True
 class BaseROPRidgeDataset(torch.utils.data.Dataset):
     def __init__(self, root_dataset,opt,img_folder,annotation_folder,
                 anno_filename,**kwargs):
@@ -356,7 +356,8 @@ class BaseROPRidgeDataset(torch.utils.data.Dataset):
     def segm_transform(self, segm):
         # to tensor, -1 to 149
         segm = np.array(segm)
-        #segm[segm>=1]=1
+        if DEBUG_AUX:
+            segm[segm>=1]=1
         #segm[segm==0]=-1
         #print(np.unique(segm))
         segm = torch.from_numpy(segm).long()
