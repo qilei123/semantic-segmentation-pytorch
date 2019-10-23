@@ -272,7 +272,7 @@ class HRAux(nn.Module):
 
     def __init__(self, in_channels, num_classes):
         super(HRAux, self).__init__()
-        self.conv0 = BasicConv2d(in_channels, 1024, kernel_size=1)
+        self.conv0 = BasicConv2d(in_channels, 2048, kernel_size=1)
         #self.conv1 = BasicConv2d(128, 768, kernel_size=5)
         self.conv0.stddev = 0.01
         self.fc = nn.Linear(2048, num_classes)
@@ -345,7 +345,7 @@ class HRNetV2(nn.Module):
         self.stage4, pre_stage_channels = self._make_stage(
             self.stage4_cfg, num_channels, multi_scale_output=True)
         if DEBUG_AUX:
-            self.AuxLogits = HRAux(384, n_class)
+            self.AuxLogits = HRAux(384, 3)
 
     def _make_transition_layer(
             self, num_channels_pre_layer, num_channels_cur_layer):
