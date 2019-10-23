@@ -470,10 +470,10 @@ class TrainROPRidgeDataset(BaseROPRidgeDataset):
             anns = self.cocoAnno.loadAnns(annIds)
             
             mask = self.cocoAnno.annToMask(anns[0])
-            
+            mask[mask==1]=anns[0]["category_id"]
             for ann in anns[1:]:
-                mask += self.cocoAnno.annToMask(ann)
-                mask[mask >=1]=1      
+                tmask = self.cocoAnno.annToMask(ann)
+                mask[tmask ==1]= ann["category_id"]     
             
             #import cv2
             #print(image_path)
@@ -602,10 +602,17 @@ class ValROPRidgeDataset(BaseROPRidgeDataset):
         anns = self.cocoAnno.loadAnns(annIds)
         
         mask = self.cocoAnno.annToMask(anns[0])
-        
+        '''
         for ann in anns[1:]:
             mask += self.cocoAnno.annToMask(ann)
             mask[mask >=1]=1 
+        '''
+
+        mask[mask==1]=anns[0]["category_id"]
+        for ann in anns[1:]:
+            tmask = self.cocoAnno.annToMask(ann)
+            mask[tmask ==1]= ann["category_id"] 
+
         segm = Image.fromarray(mask)
 
         assert(segm.mode == "L")
@@ -667,13 +674,18 @@ class TestROPRidgeDataset(BaseROPRidgeDataset):
         anns = self.cocoAnno.loadAnns(annIds)
         
         mask = self.cocoAnno.annToMask(anns[0])
-        
+        '''
         for ann in anns[1:]:
             mask += self.cocoAnno.annToMask(ann)
             mask[mask >=1]=1 
+        '''
+        mask[mask==1]=anns[0]["category_id"]
+        for ann in anns[1:]:
+            tmask = self.cocoAnno.annToMask(ann)
+            mask[tmask ==1]= ann["category_id"] 
+
         segm = Image.fromarray(mask)
         
-
         ori_width, ori_height = img.size
 
         img_resized_list = []
