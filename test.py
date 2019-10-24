@@ -59,7 +59,7 @@ def visualize_result(data, pred, cfg):
     Image.fromarray(im_vis).save(
         os.path.join(cfg.TEST.result, img_name.replace('.jpg', '.png')))
 
-DEBUG_CRF = True
+DEBUG_CRF = False
 def test(segmentation_module, loader, gpu):
     segmentation_module.eval()
     print(colors)
