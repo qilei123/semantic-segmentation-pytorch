@@ -99,7 +99,7 @@ def test(segmentation_module, loader, gpu):
                 d.setUnaryEnergy(unary)
                 d.addPairwiseBilateral(sxy=5, srgb=3, rgbim=img, compat=1)
 
-                q = d.inference(5)
+                q = d.inference(10)
                 pred = np.argmax(q, axis=0).reshape(w, h).transpose(1, 0)
                 print(np.unique(pred))
                 
