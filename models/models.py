@@ -419,7 +419,7 @@ class C1(nn.Module):
         conv5 = conv_out[0]
         x = self.cbr(conv5)
         x = self.conv_last(x)
-
+        return x
         if self.use_softmax: # is True during inference
             x = nn.functional.interpolate(
                 x, size=segSize, mode='bilinear', align_corners=False)

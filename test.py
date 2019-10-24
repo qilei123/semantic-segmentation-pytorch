@@ -88,7 +88,8 @@ def test(segmentation_module, loader, gpu):
             #print(scores)
             if DEBUG_CRF:
                 unary = scores.data.cpu().numpy()
-                unary = np.squeeze(unary, 0)    
+                unary = np.squeeze(unary, 0)
+                unary = -np.log(unary)    
                 unary = unary.transpose(2, 1, 0)
                 w, h, c = unary.shape
                 unary = unary.transpose(2, 0, 1).reshape(4, -1)
@@ -98,7 +99,7 @@ def test(segmentation_module, loader, gpu):
                 d.setUnaryEnergy(unary)
                 d.addPairwiseBilateral(sxy=5, srgb=3, rgbim=img, compat=1)
 
-                q = d.inference(50)
+                q = d.inference(5)
                 pred = np.argmax(q, axis=0).reshape(w, h).transpose(1, 0)
                 print(np.unique(pred))
                 
