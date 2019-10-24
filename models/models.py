@@ -26,7 +26,7 @@ class SegmentationModuleBase(nn.Module):
         acc = acc_sum.float() / (pixel_sum.float() + 1e-10)
         return acc
 
-DEBUG_AUX = False
+DEBUG_AUX = True
 
 class SegmentationModule(SegmentationModuleBase):
     def __init__(self, net_enc, net_dec, crit, deep_sup_scale=None):
@@ -84,7 +84,11 @@ class SegmentationModule(SegmentationModuleBase):
             return loss, acc
         # inference
         else:
-            pred = self.decoder(self.encoder(feed_dict['img_data'], return_feature_maps=True), segSize=segSize)
+            if DEBUG_AUX:
+                pred,pred_aux = self.decoder(self.encoder(feed_dict['img_data'], return_feature_maps=True), segSize=segSize)
+                print(pred_aux)
+            else:
+                pred = self.decoder(self.encoder(feed_dict['img_data'], return_feature_maps=True), segSize=segSize)
             #print(pred.size())
             #print(pred)
             #heatmap = self.softmax(pred)

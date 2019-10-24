@@ -301,7 +301,7 @@ class TestDataset(BaseDataset):
     def __len__(self):
         return self.num_sample
 
-DEBUG_AUX = False
+DEBUG_AUX = True
 class BaseROPRidgeDataset(torch.utils.data.Dataset):
     def __init__(self, root_dataset,opt,img_folder,annotation_folder,
                 anno_filename,**kwargs):

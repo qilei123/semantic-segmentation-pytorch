@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 __all__ = ['hrnetv2']
 
-DEBUG_AUX = False
+DEBUG_AUX = True
 
 model_urls = {
     'hrnetv2': 'http://sceneparsing.csail.mit.edu/model/pretrained_resnet/hrnetv2_w48-imagenet.pth',
