@@ -94,7 +94,7 @@ def test(segmentation_module, loader, gpu):
                 unary = unary.transpose(2, 0, 1).reshape(4, -1)
                 unary = np.ascontiguousarray(unary)  
                 img = np.ascontiguousarray(batch_data['img_ori'])
-                d = dcrf.DenseCRF2D(w, h, loader.n_classes)
+                d = dcrf.DenseCRF2D(w, h, 4)
                 d.setUnaryEnergy(unary)
                 d.addPairwiseBilateral(sxy=5, srgb=3, rgbim=img, compat=1)
 
