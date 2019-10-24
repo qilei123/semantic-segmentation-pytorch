@@ -32,7 +32,7 @@ TRAIN:
   workers: 32
   disp_iter: 20
   seed: 304
-  class_weight: [1.0,10.0,2.0,2.0]
+  class_weight: [1.0,10.0,10.0,10.0]
 
 VAL:
   visualize: False
