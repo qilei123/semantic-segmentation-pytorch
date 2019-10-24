@@ -18,6 +18,8 @@ from PIL import Image
 from tqdm import tqdm
 from config import cfg
 
+import pydensecrf.densecrf as dcrf
+
 colors = loadmat('data/color150.mat')['colors']
 names = {}
 with open('data/object150_info.csv') as f:
@@ -57,7 +59,7 @@ def visualize_result(data, pred, cfg):
     Image.fromarray(im_vis).save(
         os.path.join(cfg.TEST.result, img_name.replace('.jpg', '.png')))
 
-
+DEBUG_CRF = True
 def test(segmentation_module, loader, gpu):
     segmentation_module.eval()
     print(colors)
@@ -82,12 +84,27 @@ def test(segmentation_module, loader, gpu):
                 # forward pass
                 pred_tmp = segmentation_module(feed_dict, segSize=segSize)
                 scores = scores + pred_tmp / 1#len(cfg.DATASET.imgSizes)
-            print(scores.size())
-            print(scores)
-            _, pred = torch.max(scores, dim=1)
-            #print(pred.size())
-            #print(torch.unique(pred))
-            pred = as_numpy(pred.squeeze(0).cpu())
+            #print(scores.size())
+            #print(scores)
+            if DEBUG_CRF:
+                unary = scores.data.cpu().numpy()
+                unary = np.squeeze(unary, 0)    
+                unary = unary.transpose(2, 1, 0)
+                w, h, c = unary.shape
+                unary = unary.transpose(2, 0, 1).reshape(4, -1)
+                unary = np.ascontiguousarray(unary)  
+                img = np.ascontiguousarray(batch_data['img_ori'])
+                d = dcrf.DenseCRF2D(w, h, loader.n_classes)
+                d.setUnaryEnergy(unary)
+                d.addPairwiseBilateral(sxy=5, srgb=3, rgbim=img, compat=1)
+
+                q = d.inference(50)
+                pred = np.argmax(q, axis=0).reshape(w, h).transpose(1, 0)
+            else:
+                _, pred = torch.max(scores, dim=1)
+                #print(pred.size())
+                #print(torch.unique(pred))
+                pred = as_numpy(pred.squeeze(0).cpu())
         
         # visualization
         visualize_result(
