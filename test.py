@@ -100,9 +100,8 @@ def test(segmentation_module, loader, gpu):
 
                 q = d.inference(50)
                 pred = np.argmax(q, axis=0).reshape(w, h).transpose(1, 0)
-                import cv2
-                cv2.imshow("test",pred*50)
-                cv2.waitKey(0)
+                print(np.unique(pred))
+                
             else:
                 _, pred = torch.max(scores, dim=1)
                 #print(pred.size())
