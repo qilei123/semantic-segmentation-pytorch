@@ -5,22 +5,22 @@ DATASET:
   img_folder_train: "train2014"
   img_folder_val: "train2014"
   num_class: 4
-  imgSizes: (900)
-  imgMaxSize: 1200
+  imgSizes: (1200)
+  imgMaxSize: 1600
   padding_constant: 4
   segm_downsampling_rate: 4
   random_flip: True
 
 MODEL:
-  arch_encoder: "hrnetv2"
-  arch_decoder: "c1"
-  fc_dim: 720
+  arch_encoder: "resnet50"
+  arch_decoder: "upernet"
+  fc_dim: 2048
 
 TRAIN:
-  batch_size_per_gpu: 3
-  num_epoch: 50
+  batch_size_per_gpu: 1
+  num_epoch: 30
   start_epoch: 0
-  epoch_iters: 2000
+  epoch_iters: 3000
   optim: "SGD"
   lr_encoder: 0.02
   lr_decoder: 0.02
@@ -29,17 +29,16 @@ TRAIN:
   weight_decay: 1e-4
   deep_sup_scale: 0.4
   fix_bn: False
-  workers: 32
+  workers: 20
   disp_iter: 20
   seed: 304
-  class_weight: [1.0,10.0,2.0,2.0]
-
+  class_weight: [1.0,9.0]
 VAL:
-  visualize: False
-  checkpoint: "epoch_30.pth"
+  visualize: True
+  checkpoint: "epoch_26.pth"
 
 TEST:
-  checkpoint: "epoch_30.pth"
-  result: "./"
+  checkpoint: "epoch_2.pth"
+  result: "test"
 
-DIR: "ropridge/ropridge3-hrnetv2-c1"
+DIR: "ropridge/ropridge3-resnet50-upernet"
