@@ -82,11 +82,11 @@ def test(segmentation_module, loader, gpu):
                 # forward pass
                 pred_tmp = segmentation_module(feed_dict, segSize=segSize)
                 scores = scores + pred_tmp / 1#len(cfg.DATASET.imgSizes)
-            #print(scores.size())
-            #print(scores)
+            print(scores.size())
+            print(scores)
             _, pred = torch.max(scores, dim=1)
-            print(pred.size())
-            print(torch.unique(pred))
+            #print(pred.size())
+            #print(torch.unique(pred))
             pred = as_numpy(pred.squeeze(0).cpu())
         
         # visualization
