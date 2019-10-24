@@ -345,7 +345,7 @@ class HRNetV2(nn.Module):
         self.stage4, pre_stage_channels = self._make_stage(
             self.stage4_cfg, num_channels, multi_scale_output=True)
         if DEBUG_AUX:
-            self.AuxLogits = HRAux(384, 3)
+            self.AuxLogits = HRAux(384, 4)
 
     def _make_transition_layer(
             self, num_channels_pre_layer, num_channels_cur_layer):
