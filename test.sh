@@ -23,4 +23,4 @@ git pull
 #python3 test.py --gpu 0 --cfg config/ropridge-resnet101-upernet.yaml --checkpoint epoch_30.pth --result val30_res101
 #python3 test.py --gpu 0 --cfg config/ropridge-resnet101-upernet.yaml --checkpoint epoch_35.pth --result val35_res101
 
-python3 test.py --gpu 0 --cfg config/ropridge-hrnetv2_aux.yaml --checkpoint epoch_12.pth --result ropridge-hrnetv2_aux
+python3 test.py --gpu 0 --cfg config/ropridge3-hrnetv2.yaml --checkpoint epoch_16.pth --result ropridge3-hrnetv2_e16
